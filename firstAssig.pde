@@ -1,24 +1,24 @@
-TVertex tv1, tv2, tv3;
+TVertex tv1, tv2, tv3, tv4;
 
 void setup() {
   size(800, 800, P3D);
   stroke(#00FF00);
   strokeWeight(10);
-  tv1 = new TVertex(444.0, 111.0, 0.0, 0.0);
-  tv2 = new TVertex(555.0, 222.0, 0.0, 0.0);
-  tv3 = new TVertex(666.0, 333.0, 0.0, 0.0);
+  tv1 = new TVertex(150.0, 150.0, 0.0, 0.0);
+  tv2 = new TVertex(550.0, 150.0, 0.0, 0.0);
+  tv3 = new TVertex(550.0, 550.0, 0.0, 0.0);
+  tv4 = new TVertex(150.0, 550.0, 0.0, 0.0);
 }
 
 void draw() {
   background(255);
   translate(50, 50, 0);
   beginShape();
-  vertex(10,10,10);
   tv1.display();
   tv2.display();
   tv3.display();
-  vertex(20,20,20);
-  endShape();
+  tv4.display();
+  endShape(CLOSE);
   //rect(50, 50, 55, 55);
 }
 
