@@ -1,13 +1,18 @@
-TVertex tv1, tv2, tv3, tv4;
+TVertex tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8;
+// TVArray[] tvArray = new TVArray[8]; 
 
 void setup() {
-  size(800, 800, P3D);
+  size(400, 400, P3D);
   stroke(#000000);
   strokeWeight(1);
-  tv1 = new TVertex(150.0, 150.0, 0.0, 0.0);
-  tv2 = new TVertex(550.0, 150.0, 0.0, 0.0);
-  tv3 = new TVertex(550.0, 550.0, 0.0, 0.0);
-  tv4 = new TVertex(150.0, 550.0, 0.0, 0.0);
+  tv1 = new TVertex(50.0, 50.0, 0.0, 0.0);
+  tv2 = new TVertex(150.0, 50.0, 0.0, 0.0);
+  tv3 = new TVertex(150.0, 150.0, 0.0, 0.0);
+  tv4 = new TVertex(50.0, 150.0, 0.0, 0.0);
+  tv5 = new TVertex(50.0, 50.0, -100.0, 0.0);
+  tv6 = new TVertex(150.0, 50.0, -100.0, 0.0);
+  tv7 = new TVertex(150.0, 150.0, -100.0, 0.0);
+  tv8 = new TVertex(50.0, 150.0, -100.0, 0.0);
 }
 
 void draw() {
@@ -18,6 +23,13 @@ void draw() {
   tv2.display();
   tv3.display();
   tv4.display();
+  endShape(CLOSE);
+  translate(100, 100, 0);
+  beginShape();
+  tv5.display();
+  tv6.display();
+  tv7.display();
+  tv8.display();
   endShape(CLOSE);
 }
 
@@ -37,33 +49,15 @@ class TVertex {
 
 /* creating class for transformable 3DCUBE
 class 3DTCube {
-  float[] tv8Array = new float[8];
-  float[] tv4Array = new float[4];
-  // cube with four verteces
-  TCube() {
-    this.tv1 = tv1;
-    this.tv2 = tv2;
-    this.tv3 = tv3;
-    this.tv4 = tv4;
-  }
-  // cube with eight verteces
-  TCube() {
-    this.tv1 = tv1;
-    this.tv2 = tv2;
-    this.tv3 = tv3;
-    this.tv4 = tv4;
-    this.tv5 = tv5;
-    this.tv6 = tv6;
-    this.tv7 = tv7;
-    this.tv8 = tv8;
+  TVertex[] tvArray;
+  // cube with verteces
+  TCube(tvArray[]) {
+    this.tvArray[] = tvArray[];      
   }
   void display() {
     beginShape(POINTS);
-    tv1.display();
-    tv2.display();
-    tv3.display();
-    tv4.display();
+    for(int i = 0; i < tvArray.length; i++) {
+      tvArray[i].display();
     endShape(CLOSE);
   }
-}
-*/
+}*/
