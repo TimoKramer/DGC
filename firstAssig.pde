@@ -1,10 +1,13 @@
-// TVertex tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8;
-TVertex[] tvArray = new TVertex[8]; 
+// instanciate array and object
+TVertex[] tvArray;
+TCube cube;
 
 void setup() {
   size(400, 400, P3D);
   stroke(#000000);
   strokeWeight(1);
+  // create Vertex-Array
+  tvArray = new TVertex[8];
   tvArray[0] = new TVertex(50.0, 50.0, 0.0, 0.0);
   tvArray[1] = new TVertex(150.0, 50.0, 0.0, 0.0);
   tvArray[2] = new TVertex(150.0, 150.0, 0.0, 0.0);
@@ -13,12 +16,15 @@ void setup() {
   tvArray[5] = new TVertex(150.0, 50.0, -100.0, 0.0);
   tvArray[6] = new TVertex(150.0, 150.0, -100.0, 0.0);
   tvArray[7] = new TVertex(50.0, 150.0, -100.0, 0.0);
-  
+  // create Cube-Object with tvArray
+  cube = new TCube(tvArray);
 }
 
 void draw() {
   background(255);
   translate(50, 50, 0);
+  /*
+  //draw Vertexes
   beginShape();
   tvArray[0].display();
   tvArray[1].display();
@@ -32,11 +38,13 @@ void draw() {
   tvArray[6].display();
   tvArray[7].display();
   endShape(CLOSE);
+  */
+  // draw Object with Array-Argument
+  cube.display();
 }
 
-// creating class for transformable vertexes
 class TVertex {
-  float x, y, z, t; // t is transformation 
+  float x, y, z, t; // t is for transformation
   TVertex(float x, float y, float z, float t) {
     this.x = x;
     this.y = y;
@@ -48,17 +56,16 @@ class TVertex {
   }
 }
 
-/* creating class for transformable 3DCUBE
-class 3DTCube {
+class TCube {
   TVertex[] tvArray;
-  // cube with verteces
-  TCube(tvArray[]) {
-    this.tvArray[] = tvArray[];      
+  TCube(TVertex[] tvArray) {
+    this.tvArray = tvArray;      
   }
   void display() {
-    beginShape(POINTS);
-    for(int i = 0; i < tvArray.length; i++) {
+    beginShape();
+    for(int i = 0; i < tvArray.length-4; i++) {
       tvArray[i].display();
     endShape(CLOSE);
+    }
   }
-}*/
+}
