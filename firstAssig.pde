@@ -2,7 +2,7 @@
 Vertex[] vertArray;
 Cube cube;
 //Vertex v1, v2;
-//Vector vector;
+Vector vector;
 
 void setup() {
   size(400, 400, P3D);
@@ -29,7 +29,6 @@ void setup() {
 void draw() {
   background(255);
   translate(50, 50, 0);
-  // draw Cube
   cube.display();
   //vector.display();
 }
@@ -65,10 +64,11 @@ class Cube {
   Cube(Vertex[] vertArray) {
     this.vertArray = vertArray;
     // 12 vectors out of 8 vertexes
+    vectArray = new Vector[12];
     vectArray[0] = new Vector(vertArray[0], vertArray[1]);
     vectArray[1] = new Vector(vertArray[1], vertArray[2]);
     vectArray[2] = new Vector(vertArray[2], vertArray[3]);
-    vectArray[3] = new Vector(vertArray[3], vertArray[1]);
+    vectArray[3] = new Vector(vertArray[3], vertArray[0]);
     vectArray[4] = new Vector(vertArray[0], vertArray[4]);
     vectArray[5] = new Vector(vertArray[1], vertArray[5]);
     vectArray[6] = new Vector(vertArray[2], vertArray[6]);
@@ -79,7 +79,7 @@ class Cube {
     vectArray[11] = new Vector(vertArray[7], vertArray[4]);    
   }
   void display() {
-    for(int i=0; i<vectArray.length; i=11) {
+    for(int i=0; i<vectArray.length; i++) {
       vectArray[i].display();
     }
   }
