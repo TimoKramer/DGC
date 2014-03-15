@@ -24,13 +24,14 @@ void setup() {
   vertArray[7] = new Vertex(50.0, 150.0, -100.0, 1.0);
   // create Cube-Object with array-argument
   cube = new Cube(vertArray);
-  cube.transform(transfArray, vertArray);
 }
 
 void draw() {
   background(255);
   translate(50, 50, 0);
   cube.display();
-  //transfArray[0][2] += 10.0;
+  cube.transform(transfArray, vertArray);
+  //transfArray[0][3] += 10.0;
+  //print(transfArray[0][3]);
 }
 

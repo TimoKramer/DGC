@@ -27,13 +27,11 @@ class Cube {
   void transform(float[][] transfArray, Vertex[] vertArray) {
     // new vertex-array for transformed vertexes
     Vertex[] newVertArray = new Vertex[vertArray.length];
-    // count rows and columns
-    int transfRows = transfArray.length;
+    // count rows of transformation matrix
     int transfColumns = transfArray[0].length;
-    int vertRows = vertArray.length;
     // check if matrix-multiplication is possible
-    if (transfColumns != vertRows) {
-      println("transformation Array " + transfColumns + " did not match number of Vertexes " + vertRows + ".");
+    if (transfColumns != 4) {
+      println("transformation Array " + transfColumns + " did not match homogenous coordinate.");
     }
     for (int h=0; h<vertArray.length; h++) {
       // iterate through vertArray
@@ -53,16 +51,16 @@ class Cube {
         }
         newCoordinateArray[i] = newCoordinate;
       }
-   // asTODO aign values of newCoordinateArray to x, y, z or t
+      // asTODO aign values of newCoordinateArray to x, y, z or t
       Vertex newVertex = new Vertex(
-        newCoordinateArray[0],
-        newCoordinateArray[1],
-        newCoordinateArray[2],
-        newCoordinateArray[3]
-      );
-    newVertArray[h] = newVertex;
-    this.vertArray = newVertArray;
-    this.display();
+      newCoordinateArray[0], 
+      newCoordinateArray[1], 
+      newCoordinateArray[2], 
+      newCoordinateArray[3]
+        );
+      newVertArray[h] = newVertex;
+      this.vertArray = newVertArray;
+      this.display();
     }
   }
 }
