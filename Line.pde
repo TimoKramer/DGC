@@ -1,6 +1,6 @@
-class Vector {
+class Line {
   Vertex v1, v2;
-  Vector(Vertex v1, Vertex v2) {
+  Line(Vertex v1, Vertex v2) {
     this.v1 = v1;
     this.v2 = v2;
   }

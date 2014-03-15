@@ -1,56 +1,69 @@
 class Cube {
   Vertex[] vertArray;
-  Vector[] vectArray;
+  Line[] lineArray;
   Cube(Vertex[] vertArray) {
     this.vertArray = vertArray;
-    // 12 vectors out of 8 vertexes
+    // 12 lines out of 8 vertexes
     // clockwise arrangement from top left, first front then back
-    vectArray = new Vector[12];
-    vectArray[0] = new Vector(vertArray[0], vertArray[1]);
-    vectArray[1] = new Vector(vertArray[1], vertArray[2]);
-    vectArray[2] = new Vector(vertArray[2], vertArray[3]);
-    vectArray[3] = new Vector(vertArray[3], vertArray[0]);
-    vectArray[4] = new Vector(vertArray[0], vertArray[4]);
-    vectArray[5] = new Vector(vertArray[1], vertArray[5]);
-    vectArray[6] = new Vector(vertArray[2], vertArray[6]);
-    vectArray[7] = new Vector(vertArray[3], vertArray[7]);
-    vectArray[8] = new Vector(vertArray[4], vertArray[5]);
-    vectArray[9] = new Vector(vertArray[5], vertArray[6]);
-    vectArray[10] = new Vector(vertArray[6], vertArray[7]);
-    vectArray[11] = new Vector(vertArray[7], vertArray[4]);    
+    lineArray = new Line[12];
+    lineArray[0] = new Line(vertArray[0], vertArray[1]);
+    lineArray[1] = new Line(vertArray[1], vertArray[2]);
+    lineArray[2] = new Line(vertArray[2], vertArray[3]);
+    lineArray[3] = new Line(vertArray[3], vertArray[0]);
+    lineArray[4] = new Line(vertArray[0], vertArray[4]);
+    lineArray[5] = new Line(vertArray[1], vertArray[5]);
+    lineArray[6] = new Line(vertArray[2], vertArray[6]);
+    lineArray[7] = new Line(vertArray[3], vertArray[7]);
+    lineArray[8] = new Line(vertArray[4], vertArray[5]);
+    lineArray[9] = new Line(vertArray[5], vertArray[6]);
+    lineArray[10] = new Line(vertArray[6], vertArray[7]);
+    lineArray[11] = new Line(vertArray[7], vertArray[4]);
   }
   void display() {
-    for(int i=0; i<vectArray.length; i++) {
-      vectArray[i].display();
+    for (int i=0; i<lineArray.length; i++) {
+      lineArray[i].display();
     }
   }
   void transform(float[][] transfArray, Vertex[] vertArray) {
-    this.transfArray = transfArray;
-    this.vertArray = vertArray;
+    // new vertex-array for transformed vertexes
+    Vertex[] newVertArray = new Vertex[vertArray.length];
     // count rows and columns
     int transfRows = transfArray.length;
     int transfColumns = transfArray[0].length;
     int vertRows = vertArray.length;
     // check if matrix-multiplication is possible
     if (transfColumns != vertRows) {
-            throw new IllegalArgumentException("transformation Array " + transfColumns + " did not match number of Vertexes " + vertRows + ".");
+      println("transformation Array " + transfColumns + " did not match number of Vertexes " + vertRows + ".");
     }
-    // new vertex-array for transformed vertex
-    Vertex[] newVertArray;
-
-    for(int j=0; j<vertArray.length; j++) {
-      float newCoordinateArray[] = {0.0, 0.0, 0.0, 1.0};
-      for(int i=0; i<4; i++) {
+    for (int h=0; h<vertArray.length; h++) {
+      // iterate through vertArray
+      // return new vertArray
+      Float[] newCoordinateArray = new Float[4];
+      for (int i=0; i<4; i++) {
+        // multiply each row of transfArray with current vertex
+        // return new Vertex
         float newCoordinate = 0.0;
-        newCoordinate += transfArray[i][0] * vertArray[i].x;
-        newCoordinate += transfArray[i][1] * vertArray[i].y;
-        newCoordinate += transfArray[i][2] * vertArray[i].z;
-        newCoordinate += transfArray[i][3] * vertArray[i].t;
-        return newCoordinate;
+        for (int j=0; j<4; j++) {
+          // iterate transfArray and multiply with Vertex
+          // return newCoordinate
+          newCoordinate += transfArray[j][0] * vertArray[h].x;
+          newCoordinate += transfArray[j][1] * vertArray[h].y;
+          newCoordinate += transfArray[j][2] * vertArray[h].z;
+          newCoordinate += transfArray[j][3] * vertArray[h].t;
+        }
+        newCoordinateArray[i] = newCoordinate;
       }
-      newCoordinateArray[j] = newCoordinate;
+   // asTODO aign values of newCoordinateArray to x, y, z or t
+      Vertex newVertex = new Vertex(
+        newCoordinateArray[0],
+        newCoordinateArray[1],
+        newCoordinateArray[2],
+        newCoordinateArray[3]
+      );
+    newVertArray[h] = newVertex;
+    this.vertArray = newVertArray;
+    this.display();
     }
-    // TODO assign values of newCoordinateArray to x, y, z or t
-    newVertArray[j] = new Vertex(float x, float y, float z, float t);
   }
 }
+

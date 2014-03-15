@@ -1,10 +1,12 @@
 // instanciate array and object
 Vertex[] vertArray;
 Cube cube;
-float[][] transfArray = {   {1.0, 0, 0, 10.0},
-                            {0, 1.0, 0, 10.0},
-                            {0, 0, 1.0, 10.0},
-                            {0, 0, 0, 1}  };
+float[][] transfArray = {   
+  {1.0, 0, 0, 10.0}, 
+  {0, 1.0, 0, 0.0}, 
+  {0, 0, 1.0, 0.0}, 
+  {0, 0, 0, 1}
+};
 
 void setup() {
   size(400, 400, P3D);
@@ -22,11 +24,13 @@ void setup() {
   vertArray[7] = new Vertex(50.0, 150.0, -100.0, 1.0);
   // create Cube-Object with array-argument
   cube = new Cube(vertArray);
+  cube.transform(transfArray, vertArray);
 }
 
 void draw() {
   background(255);
   translate(50, 50, 0);
   cube.display();
-  cube.transform(transfArray);
+  //transfArray[0][2] += 10.0;
 }
+
