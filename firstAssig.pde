@@ -12,6 +12,7 @@ void setup() {
   size(400, 400, P3D);
   stroke(#000000);
   strokeWeight(1);
+  frameRate(30);
   // create 8 vertexes for cube
   vertArray = new Vertex[8];
   vertArray[0] = new Vertex(50.0, 50.0, 0.0, 1.0);
@@ -29,9 +30,9 @@ void setup() {
 void draw() {
   background(255);
   translate(50, 50, 0);
+  cube.createLineArray(vertArray);
   cube.display();
-  cube.transform(transfArray, vertArray);
-  //transfArray[0][3] += 10.0;
+  cube.transform(transfArray, vertArray);  
+  transfArray[0][3] += 10.0;
   //print(transfArray[0][3]);
 }
-

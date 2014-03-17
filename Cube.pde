@@ -3,6 +3,10 @@ class Cube {
   Line[] lineArray;
   Cube(Vertex[] vertArray) {
     this.vertArray = vertArray;
+  }
+  
+  void createLineArray(Vertex[] vertArray) {
+    this.vertArray = vertArray;
     // 12 lines out of 8 vertexes
     // clockwise arrangement from top left, first front then back
     lineArray = new Line[12];
@@ -19,11 +23,13 @@ class Cube {
     lineArray[10] = new Line(vertArray[6], vertArray[7]);
     lineArray[11] = new Line(vertArray[7], vertArray[4]);
   }
+  
   void display() {
     for (int i=0; i<lineArray.length; i++) {
       lineArray[i].display();
     }
   }
+  
   void transform(float[][] transfArray, Vertex[] vertArray) {
     // new vertex-array for transformed vertexes
     Vertex[] newVertArray = new Vertex[vertArray.length];
@@ -53,11 +59,11 @@ class Cube {
       }
       // asTODO aign values of newCoordinateArray to x, y, z or t
       Vertex newVertex = new Vertex(
-      newCoordinateArray[0], 
-      newCoordinateArray[1], 
-      newCoordinateArray[2], 
-      newCoordinateArray[3]
-        );
+        newCoordinateArray[0], 
+        newCoordinateArray[1], 
+        newCoordinateArray[2], 
+        newCoordinateArray[3]
+      );
       newVertArray[h] = newVertex;
       this.vertArray = newVertArray;
       this.display();
