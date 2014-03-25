@@ -17,39 +17,116 @@ import java.util.regex.*;
 
 public class firstAssig extends PApplet {
 
-// instanciate array and object
-Vertex[] vertArray;
-Cube cube;
-//Vertex v1, v2;
-//Vector vector;
-
-public void setup() {
-  size(400, 400, P3D);
-  stroke(0xff000000);
-  strokeWeight(1);
-  // create 8 vertexes for cube
-  vertArray = new Vertex[8];
-  vertArray[0] = new Vertex(50.0f, 50.0f, 0.0f, 1.0f);
-  vertArray[1] = new Vertex(150.0f, 50.0f, 0.0f, 1.0f);
-  vertArray[2] = new Vertex(150.0f, 150.0f, 0.0f, 1.0f);
-  vertArray[3] = new Vertex(50.0f, 150.0f, 0.0f, 1.0f);
-  vertArray[4] = new Vertex(50.0f, 50.0f, -100.0f, 1.0f);
-  vertArray[5] = new Vertex(150.0f, 50.0f, -100.0f, 1.0f);
-  vertArray[6] = new Vertex(150.0f, 150.0f, -100.0f, 1.0f);
-  vertArray[7] = new Vertex(50.0f, 150.0f, -100.0f, 1.0f);
-  // create Cube-Object with array-argument
-  cube = new Cube(vertArray);
-  // create Vector-Object with two Vertexes
-  //v1 = new Vertex(50.0, 50.0, 0.0, 1.0);
-  //v2 = new Vertex(150.0, 50.0, 0.0, 1.0);
-  //vector = new Vector(v1, v2);
+class Cube {
+  private Vertex[] vertArray = new Vertex[8]{
+    // create 8 vertexes for cube
+    new Vertex(50.0f, 50.0f, 0.0f, 1.0f),
+    new Vertex(150.0f, 50.0f, 0.0f, 1.0f),
+    new Vertex(150.0f, 150.0f, 0.0f, 1.0f),
+    new Vertex(50.0f, 150.0f, 0.0f, 1.0f),
+    new Vertex(50.0f, 50.0f, -100.0f, 1.0f),
+    new Vertex(150.0f, 50.0f, -100.0f, 1.0f),
+    new Vertex(150.0f, 150.0f, -100.0f, 1.0f),
+    new Vertex(50.0f, 150.0f, -100.0f, 1.0f)
+  };
+  private Line[] lineArray = new Line[12]{
+    // 12 lines out of 8 vertexes
+    // clockwise arrangement from top left, first front then back
+    new Line(vertArray[0], vertArray[1]),
+    new Line(vertArray[1], vertArray[2]),
+    new Line(vertArray[2], vertArray[3]),
+    new Line(vertArray[3], vertArray[0]),
+    new Line(vertArray[0], vertArray[4]),
+    new Line(vertArray[1], vertArray[5]),
+    new Line(vertArray[2], vertArray[6]),
+    new Line(vertArray[3], vertArray[7]),
+    new Line(vertArray[4], vertArray[5]),
+    new Line(vertArray[5], vertArray[6]),
+    new Line(vertArray[6], vertArray[7]),
+    new Line(vertArray[7], vertArray[4])
+  };
+  private Float[][] transfArray;
+  private Vertex[] newVertArray;
+  
+  Cube() {
+  	this.setVertArray(this.vertArray);
+  	this.setLineArray(this.lineArray);
+  }
+  
+  public void setVertArray(Float vertArray[]) {
+  	this.vertArray = vertArray;
+  }
+  
+  public void setLineArray(Float lineArray[]) {
+  	this.lineArray = lineArray;
+  }
+  
+  public void setTransfArray(Float[][] transfArray) {
+    this.transfArray = transfArray;   
+  }
+  
+  public void display() {
+    for (int i=0; i<lineArray.length; i++) {
+      lineArray[i].display();
+    }
+  }
+  
+  public void transform() {
+    // new vertex-array for transformed vertexes
+    newVertArray = new Vertex[vertArray.length];
+    // count rows of transformation matrix
+    int transfColumns = this.transfArray[0].length;
+    // check if matrix-multiplication is possible
+    if (transfColumns != 4) {
+      println("transformation Array " + transfColumns + " did not match homogenous coordinate.");
+    }
+    for (int h=0; h<vertArray.length; h++) {
+      // iterate through vertArray
+      // return new vertArray
+      Float[] newCoordinateArray = new Float[4];
+      for (int i=0; i<4; i++) {
+        // iterate through each row of transfArray
+        // return new Vertex
+        float newCoordinate = 0.0f;
+        for (int j=0; j<4; j++) {
+          // iterate through each value of transfArray-Row 
+          // and multiply with Vertex, add to newCoordinate
+          newCoordinate += (transfArray[i][0] * vertArray[h].x);
+          newCoordinate += (transfArray[i][1] * vertArray[h].y);
+          newCoordinate += (transfArray[i][2] * vertArray[h].z);
+          newCoordinate += (transfArray[i][3] * vertArray[h].t);
+        }
+        newCoordinateArray[i] = newCoordinate;
+        //print("newCoordinate = " + newCoordinate);
+      }
+      // asign values of newCoordinateArray to x, y, z or t
+      Vertex newVertex = new Vertex(
+        newCoordinateArray[0], // assign to x
+        newCoordinateArray[1], // assign to y
+        newCoordinateArray[2], // assign to z
+        newCoordinateArray[3]  // assign to t
+      );
+      print(" newVertex = " + newVertex.x + " " +
+      	newVertex.y + " " + newVertex.z + " " + newVertex.t);
+      newVertArray[h] = newVertex;
+    }
+    //print("newVertArray = " + newVertArray);
+  }
 }
 
-public void draw() {
-  background(255);
-  translate(50, 50, 0);
-  cube.display();
-  //vector.display();
+class Line {
+  Vertex v1, v2;
+  Line(Vertex v1, Vertex v2) {
+    this.v1 = v1;
+    this.v2 = v2;
+  }
+  
+  public void orthoProjection() {
+  	
+  }
+  public void display() {
+    line(v1.x, v1.y, v1.z, v2.x, v2.y, v2.z);
+  }
 }
 
 class Vertex {
@@ -65,43 +142,32 @@ class Vertex {
   }
 }
 
-class Vector {
-  Vertex v1, v2;
-  Vector(Vertex v1, Vertex v2) {
-    this.v1 = v1;
-    this.v2 = v2;
-  }
-  public void display() {
-    line(v1.x, v1.y, v1.z, v2.x, v2.y, v2.z);
-  }
+// instanciate array and object
+Vertex[] vertArray;
+Cube cube;
+Float[][] transfArray = {   
+  {1.0f, 0.0f, 0.0f, 0.0f}, 
+  {0.0f, 1.0f, 0.0f, 0.0f}, 
+  {0.0f, 0.0f, 1.0f, 0.0f}, 
+  {0.0f, 0.0f, 0.0f, 1.0f}
+};
+
+public void setup() {
+  size(400, 400, P3D);
+  stroke(0xff000000);
+  strokeWeight(1);
+  frameRate(1);
+  // create Cube-Object
+  cube = new Cube();
 }
 
-// clockwise arrangement from top left, first front then back
-class Cube {
-  Vertex[] vertArray;
-  Vector[] vectArray;
-  Cube(Vertex[] vertArray) {
-    this.vertArray = vertArray;
-    // 12 vectors out of 8 vertexes
-    vectArray = new Vector[12];
-    vectArray[0] = new Vector(vertArray[0], vertArray[1]);
-    vectArray[1] = new Vector(vertArray[1], vertArray[2]);
-    vectArray[2] = new Vector(vertArray[2], vertArray[3]);
-    vectArray[3] = new Vector(vertArray[3], vertArray[1]);
-    vectArray[4] = new Vector(vertArray[0], vertArray[4]);
-    vectArray[5] = new Vector(vertArray[1], vertArray[5]);
-    vectArray[6] = new Vector(vertArray[2], vertArray[6]);
-    vectArray[7] = new Vector(vertArray[3], vertArray[7]);
-    vectArray[8] = new Vector(vertArray[4], vertArray[5]);
-    vectArray[9] = new Vector(vertArray[5], vertArray[6]);
-    vectArray[10] = new Vector(vertArray[6], vertArray[7]);
-    vectArray[11] = new Vector(vertArray[7], vertArray[4]);    
-  }
-  public void display() {
-    for(int i=0; i<vectArray.length; i++) {
-      vectArray[i].display();
-    }
-  }
+public void draw() {
+  background(255);
+  translate(50, 50, 0);
+  cube.display();
+  transfArray[0][3] += 10.0f;
+  cube.setTransfArray(transfArray);
+  cube.transform();  
 }
 
     static public void main(String args[]) {

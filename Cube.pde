@@ -1,53 +1,67 @@
 class Cube {
-  public Vertex[] vertArray;
-  public Line[] lineArray;
-  public Float[][] transfArray;
-  Cube() {
-    createVertArray();
-  }
-  
-  Vertex[] createVertArray() {
+  private Vertex[] vertArray = new Vertex[]{
     // create 8 vertexes for cube
-    this.vertArray = new Vertex[8];
-    vertArray[0] = new Vertex(50.0, 50.0, 0.0, 1.0);
-    vertArray[1] = new Vertex(150.0, 50.0, 0.0, 1.0);
-    vertArray[2] = new Vertex(150.0, 150.0, 0.0, 1.0);
-    vertArray[3] = new Vertex(50.0, 150.0, 0.0, 1.0);
-    vertArray[4] = new Vertex(50.0, 50.0, -100.0, 1.0);
-    vertArray[5] = new Vertex(150.0, 50.0, -100.0, 1.0);
-    vertArray[6] = new Vertex(150.0, 150.0, -100.0, 1.0);
-    vertArray[7] = new Vertex(50.0, 150.0, -100.0, 1.0);
-    return vertArray;
-}
-  
-  Line[] createLineArray() {
+    new Vertex(50.0, 50.0, 0.0, 1.0),
+    new Vertex(150.0, 50.0, 0.0, 1.0),
+    new Vertex(150.0, 150.0, 0.0, 1.0),
+    new Vertex(50.0, 150.0, 0.0, 1.0),
+    new Vertex(50.0, 50.0, -100.0, 1.0),
+    new Vertex(150.0, 50.0, -100.0, 1.0),
+    new Vertex(150.0, 150.0, -100.0, 1.0),
+    new Vertex(50.0, 150.0, -100.0, 1.0)
+  };
+  private Line[] lineArray = new Line[]{
     // 12 lines out of 8 vertexes
     // clockwise arrangement from top left, first front then back
-    this.lineArray = new Line[12];
-    lineArray[0] = new Line(vertArray[0], vertArray[1]);
-    lineArray[1] = new Line(vertArray[1], vertArray[2]);
-    lineArray[2] = new Line(vertArray[2], vertArray[3]);
-    lineArray[3] = new Line(vertArray[3], vertArray[0]);
-    lineArray[4] = new Line(vertArray[0], vertArray[4]);
-    lineArray[5] = new Line(vertArray[1], vertArray[5]);
-    lineArray[6] = new Line(vertArray[2], vertArray[6]);
-    lineArray[7] = new Line(vertArray[3], vertArray[7]);
-    lineArray[8] = new Line(vertArray[4], vertArray[5]);
-    lineArray[9] = new Line(vertArray[5], vertArray[6]);
-    lineArray[10] = new Line(vertArray[6], vertArray[7]);
-    lineArray[11] = new Line(vertArray[7], vertArray[4]);
-    return lineArray;
+    new Line(vertArray[0], vertArray[1]),
+    new Line(vertArray[1], vertArray[2]),
+    new Line(vertArray[2], vertArray[3]),
+    new Line(vertArray[3], vertArray[0]),
+    new Line(vertArray[0], vertArray[4]),
+    new Line(vertArray[1], vertArray[5]),
+    new Line(vertArray[2], vertArray[6]),
+    new Line(vertArray[3], vertArray[7]),
+    new Line(vertArray[4], vertArray[5]),
+    new Line(vertArray[5], vertArray[6]),
+    new Line(vertArray[6], vertArray[7]),
+    new Line(vertArray[7], vertArray[4])
+  };
+  private Float[][] transfArray;
+  private Vertex[] newVertArray;
+  private Line[] newLineArray;
+  
+  Cube() {
+   this.setVertArray(this.vertArray);
+  	this.setLineArray(this.lineArray);
   }
   
-  Float[][] createTransfArray() {   
-    this.transfArray = new Float[][];
-    transfArray = {
-      {1.0, 0.0, 0.0, 10.0}, 
-      {0.0, 1.0, 0.0, 0.0}, 
-      {0.0, 0.0, 1.0, 0.0}, 
-      {0.0, 0.0, 0.0, 1.0}
-    };
-    return transfArray;
+  void setVertArray(Vertex[] vertArray) {
+  	this.vertArray = vertArray;
+  }
+  
+  void setLineArray(Line[] lineArray) {
+  	this.lineArray = lineArray;
+  }
+  
+  void setTransfArray(Float[][] transfArray) {
+    this.transfArray = transfArray;   
+  }
+  
+  void createLineArray(Vertex[] newVertArray) {
+    newLineArray = new Line[12];
+    newLineArray[0] = new Line(newVertArray[0], newVertArray[1]);
+    newLineArray[1] = new Line(newVertArray[1], newVertArray[2]);
+    newLineArray[2] = new Line(newVertArray[2], newVertArray[3]);
+    newLineArray[3] = new Line(newVertArray[3], newVertArray[0]);
+    newLineArray[4] = new Line(newVertArray[0], newVertArray[4]);
+    newLineArray[5] = new Line(newVertArray[1], newVertArray[5]);
+    newLineArray[6] = new Line(newVertArray[2], newVertArray[6]);
+    newLineArray[7] = new Line(newVertArray[3], newVertArray[7]);
+    newLineArray[8] = new Line(newVertArray[4], newVertArray[5]);
+    newLineArray[9] = new Line(newVertArray[5], newVertArray[6]);
+    newLineArray[10] = new Line(newVertArray[6], newVertArray[7]);
+    newLineArray[11] = new Line(newVertArray[7], newVertArray[4]);
+    setLineArray(newLineArray);
   }
   
   void display() {
@@ -56,11 +70,17 @@ class Cube {
     }
   }
   
-  Vertex[] transform() {
+  void display(Vertex[] newVertArray) {
+    for (int i=0; i<lineArray.length; i++) {
+      lineArray[i].display();
+    }
+  }
+  
+  void transform() {
     // new vertex-array for transformed vertexes
-    Vertex[] newVertArray = new Vertex[vertArray.length];
+    newVertArray = new Vertex[vertArray.length];
     // count rows of transformation matrix
-    int transfColumns = transfArray[0].length;
+    int transfColumns = this.transfArray[0].length;
     // check if matrix-multiplication is possible
     if (transfColumns != 4) {
       println("transformation Array " + transfColumns + " did not match homogenous coordinate.");
@@ -69,29 +89,32 @@ class Cube {
       // iterate through vertArray
       // return new vertArray
       Float[] newCoordinateArray = new Float[4];
-      for (int i=0; i<4; i++) {
-        // multiply each row of transfArray with current vertex
+      for (int i=0; i<transfArray.length; i++) {
+        // iterate through each row of transfArray
         // return new Vertex
-        float newCoordinate = 0.0;
-        for (int j=0; j<4; j++) {
-          // iterate transfArray and multiply with Vertex
-          // return newCoordinate
-          newCoordinate += transfArray[j][0] * vertArray[h].x;
-          newCoordinate += transfArray[j][1] * vertArray[h].y;
-          newCoordinate += transfArray[j][2] * vertArray[h].z;
-          newCoordinate += transfArray[j][3] * vertArray[h].t;
-        }
+        Float newCoordinate = 0.0;
+        //for (int j=0; j<transfArray[0].length; j++) {
+          // iterate through each value of transfArray-Row 
+          // and multiply with Vertex, add to newCoordinate
+          newCoordinate += (transfArray[i][0] * vertArray[h].x);
+          newCoordinate += (transfArray[i][1] * vertArray[h].y);
+          newCoordinate += (transfArray[i][2] * vertArray[h].z);
+          newCoordinate += (transfArray[i][3] * vertArray[h].t);
+        //}
         newCoordinateArray[i] = newCoordinate;
+        //print("newCoordinate = " + newCoordinate);
       }
-      // asTODO aign values of newCoordinateArray to x, y, z or t
+      // asign values of newCoordinateArray to x, y, z or t
       Vertex newVertex = new Vertex(
-        newCoordinateArray[0], 
-        newCoordinateArray[1], 
-        newCoordinateArray[2], 
-        newCoordinateArray[3]
+        newCoordinateArray[0], // assign to x
+        newCoordinateArray[1], // assign to y
+        newCoordinateArray[2], // assign to z
+        newCoordinateArray[3]  // assign to t
       );
+      print(" newVertex = " + newVertex.x + " " +
+      	newVertex.y + " " + newVertex.z + " " + newVertex.t);
       newVertArray[h] = newVertex;
     }
-    return newVertArray;
+    createLineArray(newVertArray);
   }
 }
