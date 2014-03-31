@@ -1,16 +1,17 @@
 // instanciate array and object
 Vertex[] vertArray;
 Cube cube;
-Float[][] transfArray = {   
+float[][] transfArray = {   
   {1.0, 0.0, 0.0, 0.0}, 
   {0.0, 1.0, 0.0, 0.0}, 
   {0.0, 0.0, 1.0, 0.0}, 
   {0.0, 0.0, 0.0, 1.0}
 };
+int factor;
 
 void setup() {
   background(255);
-  size(1000, 1000, P3D);
+  size(800, 600, P2D);
   stroke(#000000);
   strokeWeight(1);
   frameRate(1);
@@ -28,10 +29,9 @@ void draw() {
   transfArray[2][2] += 1.0;
   */
   // rotation about the z-axis
-  Integer n = 0;
-  n += 1;
-  Float mySin = sin(n*QUARTER_PI);
-  Float myCos = cos(n*QUARTER_PI);
+  factor += 1;
+  float mySin = sin(factor*QUARTER_PI);
+  float myCos = cos(factor*QUARTER_PI);
   transfArray[1][1] = myCos;
   transfArray[1][2] = -mySin;
   transfArray[2][1] = mySin;
@@ -41,8 +41,7 @@ void draw() {
   //print(transfArray[2][1]);
   //print(transfArray[2][2]);
 
-  
-  translate(100, 100);
+  translate(300, 300);
   cube.display();
   cube.setTransfArray(transfArray);
   cube.transform();

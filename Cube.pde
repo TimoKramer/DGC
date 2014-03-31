@@ -1,14 +1,14 @@
 class Cube {
   private Vertex[] vertArray = new Vertex[]{
     // create 8 vertexes for cube
-    new Vertex(50.0, 50.0, 0.0, 1.0),
-    new Vertex(150.0, 50.0, 0.0, 1.0),
-    new Vertex(150.0, 150.0, 0.0, 1.0),
-    new Vertex(50.0, 150.0, 0.0, 1.0),
     new Vertex(50.0, 50.0, -100.0, 1.0),
     new Vertex(150.0, 50.0, -100.0, 1.0),
     new Vertex(150.0, 150.0, -100.0, 1.0),
-    new Vertex(50.0, 150.0, -100.0, 1.0)
+    new Vertex(50.0, 150.0, -100.0, 1.0),
+    new Vertex(50.0, 50.0, 0.0, 1.0),
+    new Vertex(150.0, 50.0, 0.0, 1.0),
+    new Vertex(150.0, 150.0, 0.0, 1.0),
+    new Vertex(50.0, 150.0, 0.0, 1.0)
   };
   private Line[] lineArray = new Line[]{
     // 12 lines out of 8 vertexes
@@ -26,7 +26,7 @@ class Cube {
     new Line(vertArray[6], vertArray[7]),
     new Line(vertArray[7], vertArray[4])
   };
-  private Float[][] transfArray;
+  private float[][] transfArray;
   private Vertex[] newVertArray;
   private Line[] newLineArray;
   
@@ -43,7 +43,7 @@ class Cube {
   	this.lineArray = lineArray;
   }
   
-  void setTransfArray(Float[][] transfArray) {
+  void setTransfArray(float[][] transfArray) {
     this.transfArray = transfArray;   
   }
   
@@ -66,13 +66,13 @@ class Cube {
   
   void display() {
     for (int i=0; i<lineArray.length; i++) {
-      lineArray[i].display();
+      lineArray[i].display2D();
     }
   }
   
   void display(Vertex[] newVertArray) {
     for (int i=0; i<lineArray.length; i++) {
-      lineArray[i].display();
+      lineArray[i].display2D();
     }
   }
   
@@ -88,11 +88,11 @@ class Cube {
     for (int h=0; h<vertArray.length; h++) {
       // iterate through vertArray
       // return new vertArray
-      Float[] newCoordinateArray = new Float[4];
+      float[] newCoordinateArray = new float[4];
       for (int i=0; i<transfArray.length; i++) {
         // iterate through each row of transfArray
         // return new Vertex
-        Float newCoordinate = 0.0;
+        float newCoordinate = 0.0;
         // iterate through each value of transfArray-Row 
         // and multiply with Vertex, add to newCoordinate
         newCoordinate += (transfArray[i][0] * vertArray[h].x);
@@ -108,9 +108,7 @@ class Cube {
         newCoordinateArray[2], // assign to z
         newCoordinateArray[3]  // assign to t
       );
-      //print(" newVertex = " + newVertex.x + " " +
-      //	newVertex.y + " " + newVertex.z + " " + newVertex.t);
-      // newVertArray[h] = newVertex;
+      newVertArray[h] = newVertex;
     }
     createLineArray(newVertArray);
   }
