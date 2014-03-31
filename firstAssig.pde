@@ -16,13 +16,34 @@ void setup() {
   frameRate(1);
   // create Cube-Object
   cube = new Cube();
-  cube.display();
 }
 
 void draw() {
-  translate(50, 50, 0);
-  transfArray[0][3] += 10.0;
+  /* translation along y-axis
+  //transfArray[0][3] += 10.0;
+  */
+  /* scaling
+  transfArray[0][0] += 1.0;
+  transfArray[1][1] += 1.0;
+  transfArray[2][2] += 1.0;
+  */
+  // rotation about the z-axis
+  Integer n = 0;
+  n += 1;
+  Float mySin = sin(n*QUARTER_PI);
+  Float myCos = cos(n*QUARTER_PI);
+  transfArray[1][1] = myCos;
+  transfArray[1][2] = -mySin;
+  transfArray[2][1] = mySin;
+  transfArray[2][2] = myCos;
+  //print(transfArray[1][1]);
+  //print(transfArray[1][2]);
+  //print(transfArray[2][1]);
+  //print(transfArray[2][2]);
+
+  
+  translate(100, 100);
+  cube.display();
   cube.setTransfArray(transfArray);
   cube.transform();
-  cube.display();
 }

@@ -93,16 +93,13 @@ class Cube {
         // iterate through each row of transfArray
         // return new Vertex
         Float newCoordinate = 0.0;
-        //for (int j=0; j<transfArray[0].length; j++) {
-          // iterate through each value of transfArray-Row 
-          // and multiply with Vertex, add to newCoordinate
-          newCoordinate += (transfArray[i][0] * vertArray[h].x);
-          newCoordinate += (transfArray[i][1] * vertArray[h].y);
-          newCoordinate += (transfArray[i][2] * vertArray[h].z);
-          newCoordinate += (transfArray[i][3] * vertArray[h].t);
-        //}
+        // iterate through each value of transfArray-Row 
+        // and multiply with Vertex, add to newCoordinate
+        newCoordinate += (transfArray[i][0] * vertArray[h].x);
+        newCoordinate += (transfArray[i][1] * vertArray[h].y);
+        newCoordinate += (transfArray[i][2] * vertArray[h].z);
+        newCoordinate += (transfArray[i][3] * vertArray[h].t);
         newCoordinateArray[i] = newCoordinate;
-        //print("newCoordinate = " + newCoordinate);
       }
       // asign values of newCoordinateArray to x, y, z or t
       Vertex newVertex = new Vertex(
@@ -111,9 +108,9 @@ class Cube {
         newCoordinateArray[2], // assign to z
         newCoordinateArray[3]  // assign to t
       );
-      print(" newVertex = " + newVertex.x + " " +
-      	newVertex.y + " " + newVertex.z + " " + newVertex.t);
-      newVertArray[h] = newVertex;
+      //print(" newVertex = " + newVertex.x + " " +
+      //	newVertex.y + " " + newVertex.z + " " + newVertex.t);
+      // newVertArray[h] = newVertex;
     }
     createLineArray(newVertArray);
   }
