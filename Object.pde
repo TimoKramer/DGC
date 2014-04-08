@@ -9,47 +9,49 @@ class Object {
       new Vertex(20.0, 300.0, 0.0, 1.0),
   };
   private Line[] lineArray;
-  private float[][] transfArray;
-  private Line[] newLineArray;
   
   Object() {
    this.setVertArray(this.vertArray);
+   this.createLineArray(this.vertArray);
    this.setLineArray(this.lineArray);
   }
   
   void setVertArray(Vertex[] vertArray) {
-    Vertex[] newVertArray = new Vertex[vertArray.length * 8];
-    arrayCopy(vertArray, newVertArray);
-    // take Vertexes as Input and rotate them 7 times to form Object
+    Vertex[] newVertArray;
+    newVertArray = vertArray;
     for (int j=1; j<8; j++) {
+    /*
+    *  take user-defined Vertexes and rotate them 7 times to form Object
+    */
       float[][] transfArray = {   
-        {1.0, 0.0, 0.0, 0.0}, 
+        {cos(j*QUARTER_PI), 0.0, sin(j*QUARTER_PI), 0.0}, 
         {0.0, 1.0, 0.0, 0.0}, 
-        {0.0, 0.0, 1.0, 0.0}, 
+        {-sin(j*QUARTER_PI), 0.0, cos(j*QUARTER_PI), 0.0}, 
         {0.0, 0.0, 0.0, 1.0}
       };
-      float mySin = sin(j*QUARTER_PI);
-      float myCos = cos(j*QUARTER_PI);
-      transfArray[0][0] = myCos;
-      transfArray[0][2] = mySin;
-      transfArray[2][0] = -mySin;
-      transfArray[2][2] = myCos;
-      // multiply each Vertex from vertArray with transfArray
+      /*
+      *  iterate through vertArray
+      *  append newVertex to newVertArray
+      */
       for (int h=0; h<vertArray.length; h++) {
-        // iterate through vertArray
-        // return new vertArray
         float[] newCoordinateArray = new float[4];
+        /*
+        *  iterate through each row of transfArray
+        *  create newCoordinateArray
+        */
         for (int i=0; i<transfArray.length; i++) {
-          // iterate through each row of transfArray
-          // return new Vertex
           float newCoordinate = 0.0;
-          // iterate through each value of transfArray-Row 
-          // and multiply with Vertex, add to newCoordinate
+          /* 
+          *  multiply each value of transfArray-Row with
+          *  corresponding Vertex-value and add to newCoordinate
+          */
           newCoordinate += (transfArray[i][0] * vertArray[h].x);
           newCoordinate += (transfArray[i][1] * vertArray[h].y);
           newCoordinate += (transfArray[i][2] * vertArray[h].z);
           newCoordinate += (transfArray[i][3] * vertArray[h].t);
+          //print(newCoordinate);
           newCoordinateArray[i] = newCoordinate;
+          //printArray(newCoordinateArray);
         }
         // asign values of newCoordinateArray to x, y, z or t
         Vertex newVertex = new Vertex(
@@ -58,35 +60,25 @@ class Object {
           newCoordinateArray[2], // assign to z
           newCoordinateArray[3]  // assign to t
         );
-        append(newVertArray, newVertex);
+        newVertArray = (Vertex[]) append(newVertArray, newVertex);
       }
     }
     this.vertArray = newVertArray;
-    print(this.vertArray);
+    //printArray(this.vertArray);
   }
   
   void setLineArray(Line[] lineArray) {
     this.lineArray = lineArray;
   }
   
-  void setTransfArray(float[][] transfArray) {
-    this.transfArray = transfArray;   
-  }
-  
-  void createLineArray(Vertex[] newVertArray) {
-    newLineArray = new Line[12];
-    newLineArray[0] = new Line(newVertArray[0], newVertArray[1]);
-    newLineArray[1] = new Line(newVertArray[1], newVertArray[2]);
-    newLineArray[2] = new Line(newVertArray[2], newVertArray[3]);
-    newLineArray[3] = new Line(newVertArray[3], newVertArray[0]);
-    newLineArray[4] = new Line(newVertArray[0], newVertArray[4]);
-    newLineArray[5] = new Line(newVertArray[1], newVertArray[5]);
-    newLineArray[6] = new Line(newVertArray[2], newVertArray[6]);
-    newLineArray[7] = new Line(newVertArray[3], newVertArray[7]);
-    newLineArray[8] = new Line(newVertArray[4], newVertArray[5]);
-    newLineArray[9] = new Line(newVertArray[5], newVertArray[6]);
-    newLineArray[10] = new Line(newVertArray[6], newVertArray[7]);
-    newLineArray[11] = new Line(newVertArray[7], newVertArray[4]);
+  void createLineArray(Vertex[] vertArray) {
+    Line[] newLineArray;
+    //int arraylength = ((newVertArray.length*3) - (newVertArray.length/8)*2);
+    int arraylength = (vertArray.length + 1);
+    newLineArray = new Line[arraylength];
+    for (int i=0; i<vertArray.length; i++){
+      newLineArray[i] = new Line(vertArray[i-1], vertArray[i]);
+    }
     setLineArray(newLineArray);
   }
   
@@ -95,13 +87,7 @@ class Object {
       lineArray[i].display2D();
     }
   }
-  
-  void display(Vertex[] newVertArray) {
-    for (int i=0; i<lineArray.length; i++) {
-      lineArray[i].display2D();
-    }
-  }
-  
+    
   /*
   void transform() {
     // new vertex-array for transformed vertexes
@@ -140,4 +126,5 @@ class Object {
     createLineArray(newVertArray);
   }
   */
+  
 }
