@@ -157,6 +157,8 @@ class Line {
   }
 }
 
+private static int rotations = 8; 
+
 class Object {
   private Vertex[] vertArray = new Vertex[]{
       new Vertex(0.0f, 0.0f, 0.0f, 1.0f),
@@ -168,17 +170,18 @@ class Object {
       new Vertex(20.0f, 300.0f, 0.0f, 1.0f),
   };
   private Line[] lineArray;
-  Vertex[][] rotationArray;
+  private Vertex[][] rotationArray;
   
   Object() {
    this.setVertArray(this.vertArray);
-   //this.createLineArray(this.vertArray);
+   this.createLineArray(this.rotationArray);
    this.setLineArray(this.lineArray);
   }
   
   public void setVertArray(Vertex[] vertArray) {
+    rotationArray = new Vertex[rotations][vertArray.length];
     rotationArray[0] = vertArray;
-    for (int j=1; j<8; j++) {
+    for (int j=1; j<rotations; j++) {
     /*
     *  take user-defined Vertexes and rotate them 7 times to form Object
     */
@@ -191,7 +194,6 @@ class Object {
       Vertex[] newRotationArray = new Vertex[vertArray.length];
       /*
       *  iterate through vertArray
-      *  append newVertex to newVertArray
       */
       for (int h=0; h<vertArray.length; h++) {
         float[] newCoordinateArray = new float[4];
@@ -222,7 +224,7 @@ class Object {
         );
         newRotationArray[h] = newVertex;
       }
-      print(newRotationArray);
+      // create multidimensional array full with rotated Vertexes
       rotationArray[j] = newRotationArray;
     }
   }
@@ -230,24 +232,33 @@ class Object {
   public void setLineArray(Line[] lineArray) {
     this.lineArray = lineArray;
   }
-  /**
-  void createLineArray(Vertex[] vertArray) {
+
+  public void createLineArray(Vertex[][] rotationArray) {
+    int lastEl = rotationArray[0].length-1;
+    int arraylength = (rotations * (rotationArray[0].length*3-2));
     Line[] newLineArray;
-    //int arraylength = ((newVertArray.length*3) - (newVertArray.length/8)*2);
-    int arraylength = (vertArray.length + 1);
     newLineArray = new Line[arraylength];
-    for (int i=0; i<vertArray.length; i++){
-      newLineArray[i] = new Line(vertArray[i-1], vertArray[i]);
+    for (int j=0; j<rotationArray.length; j++){
+      for (int i=0; i<rotationArray[0].length-1; i++){
+        Line line1 = new Line(rotationArray[j][i], rotationArray[j+1][i]);
+        newLineArray = (Line[]) append(newLineArray,line1);
+        Line line2 = new Line(rotationArray[j][i], rotationArray[j+1][i+1]);
+        newLineArray = (Line[]) append(newLineArray,line2); 
+        Line line3 = new Line(rotationArray[j][i], rotationArray[j][i+1]);
+        newLineArray = (Line[]) append(newLineArray,line3); 
+      }
+      Line lowLine = new Line(rotationArray[j][lastEl], rotationArray[j+1][lastEl]);
+      newLineArray = (Line[]) append(newLineArray,lowLine); 
     }
     setLineArray(newLineArray);
   }
 
-  void display() {
+  public void display() {
     for (int i=0; i<lineArray.length; i++) {
       lineArray[i].display2D();
     }
   }
-  **/  
+
   /*
   void transform() {
     // new vertex-array for transformed vertexes

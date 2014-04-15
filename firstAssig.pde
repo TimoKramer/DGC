@@ -13,7 +13,7 @@ int factor;
 void setup() {
   background(255);
   size(800, 600, P3D);
-  translate(400, 300);
+  translate(200, 150);
   stroke(#000000);
   strokeWeight(1);
   frameRate(1);
@@ -21,7 +21,7 @@ void setup() {
   //cube = new Cube();
   // create custom Object
   object = new Object();
-  //object.display();
+  object.display();
 
 }
 
