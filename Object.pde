@@ -1,7 +1,7 @@
 private static int rotations = 8; 
 
 class Object {
-  private Vertex[] vertArray = new Vertex[] {
+  private Vertex[] pointArray = new Vertex[] {
     new Vertex(0.0, 0.0, 0.0, 1.0), 
     new Vertex(50.0, 50.0, 0.0, 1.0), 
     new Vertex(70.0, 100.0, 0.0, 1.0), 
@@ -10,69 +10,80 @@ class Object {
     new Vertex(50.0, 250.0, 0.0, 1.0), 
     new Vertex(20.0, 300.0, 0.0, 1.0),
   };
+  private float[][] transfArray = {   
+    {1.0, 0.0, 0.0, 0.0}, 
+    {0.0, 1.0, 0.0, 0.0}, 
+    {0.0, 0.0, 1.0, 0.0}, 
+    {0.0, 0.0, 0.0, 1.0}
+  };
   private Line[] lineArray;
   private Vertex[][] rotationArray;
 
   Object() {
-    this.setVertArray(this.vertArray);
+    this.setRotationArray(this.pointArray);
     this.createLineArray(this.rotationArray);
     this.setLineArray(this.lineArray);
   }
 
-  void setVertArray(Vertex[] vertArray) {
-    rotationArray = new Vertex[rotations][vertArray.length];
-    rotationArray[0] = vertArray;
+  void setPointArray(Vertex[] pointArray){
+    this.pointArray = pointArray;
+  }
+  
+  Vertex[] getPointArray(){
+    return this.pointArray;
+  }
+
+  void setTransfArray(float[][] transfArray){
+    this.transfArray = transfArray;
+  }
+  
+  float[][] getTransfArray(){
+    return this.transfArray;
+  }
+  
+  void setRotationArray(Vertex[] pointArray) {
+    rotationArray = new Vertex[rotations][pointArray.length];
+    rotationArray[0] = pointArray;
     for (int j=1; j<rotations; j++) {
       /*
-    *  take user-defined Vertexes and rotate them 7 times to form Object
+       *  take user-defined Vertexes and rotate them 7 times to form Object
        */
-      float[][] transfArray = {   
-        {
-          cos(j*QUARTER_PI), 0.0, sin(j*QUARTER_PI), 0.0
-        }
-        , 
-        {
-          0.0, 1.0, 0.0, 0.0
-        }
-        , 
-        {
-          -sin(j*QUARTER_PI), 0.0, cos(j*QUARTER_PI), 0.0
-        }
-        , 
-        {
-          0.0, 0.0, 0.0, 1.0
-        }
+      float[][] rotationTransformationArray = {   
+        {cos(j*QUARTER_PI), 0.0, sin(j*QUARTER_PI), 0.0}, 
+        {0.0, 1.0, 0.0, 0.0}, 
+        {-sin(j*QUARTER_PI), 0.0, cos(j*QUARTER_PI), 0.0}, 
+        {0.0, 0.0, 0.0, 1.0}
       };
-      Vertex[] newRotationArray = new Vertex[vertArray.length];
+      Vertex[] newRotationArray = new Vertex[pointArray.length];
       /*
-      *  iterate through vertArray
+       *  iterate through pointArray
        */
-      for (int h=0; h<vertArray.length; h++) {
+      for (int h=0; h<pointArray.length; h++) {
         float[] newCoordinateArray = new float[4];
         /*
-        *  iterate through each row of transfArray
+         *  iterate through each row of rotationTransformationArray
          *  create newCoordinateArray
          */
-        for (int i=0; i<transfArray.length; i++) {
-          float newCoordinate = 0.0;
-          /* 
-           *  multiply each value of transfArray-Row with
-           *  corresponding Vertex-value and add to newCoordinate
-           */
-          newCoordinate += (transfArray[i][0] * vertArray[h].x);
-          newCoordinate += (transfArray[i][1] * vertArray[h].y);
-          newCoordinate += (transfArray[i][2] * vertArray[h].z);
-          newCoordinate += (transfArray[i][3] * vertArray[h].t);
-          //print(newCoordinate);
-          newCoordinateArray[i] = newCoordinate;
-          //printArray(newCoordinateArray);
+        for (int i=0; i<rotationTransformationArray.length; i++) {
+            float newCoordinate = 0.0;
+            /* 
+             *  multiply each value of rotTransformationArray-Row with
+             *  corresponding Vertex-value and add to newCoordinate
+             */
+            newCoordinate += (rotationTransformationArray[i][0] * pointArray[h].x);
+            newCoordinate += (rotationTransformationArray[i][1] * pointArray[h].y);
+            newCoordinate += (rotationTransformationArray[i][2] * pointArray[h].z);
+            newCoordinate += (rotationTransformationArray[i][3] * pointArray[h].t);
+            //print(newCoordinate);
+            newCoordinateArray[i] = newCoordinate;
+            //printArray(newCoordinateArray);
         }
         // asign values of newCoordinateArray to x, y, z or t
         Vertex newVertex = new Vertex(
-        newCoordinateArray[0], // assign to x
-        newCoordinateArray[1], // assign to y
-        newCoordinateArray[2], // assign to z
-        newCoordinateArray[3]  // assign to t
+          newCoordinateArray[0], // assign to x
+          newCoordinateArray[1], // assign to y
+          newCoordinateArray[2], // assign to z
+          newCoordinateArray[3]  // assign to t
         );
         newRotationArray[h] = newVertex;
       }
@@ -81,8 +92,16 @@ class Object {
     }
   }
 
+  Vertex[][] getRotationArray(){
+    return this.rotationArray;
+  }
+
   void setLineArray(Line[] lineArray) {
     this.lineArray = lineArray;
+  }
+  
+  Line[] getLineArray(){
+    return this.lineArray;
   }
 
   void createLineArray(Vertex[][] rotationArray) {
@@ -90,7 +109,7 @@ class Object {
     Line[] newLineArray;
     newLineArray = new Line[0];
     for (int j=0; j<rotationArray.length; j++) {
-      if (j!=7){
+      if (j!=7) {
         for (int i=0; i<rotationArray[0].length-1; i++) {
           Line line1 = new Line(rotationArray[j][i], rotationArray[j+1][i]);
           newLineArray = (Line[]) append(newLineArray, line1);
@@ -101,7 +120,8 @@ class Object {
         }
         Line lowLine = new Line(rotationArray[j][lastEl], rotationArray[j+1][lastEl]);
         newLineArray = (Line[]) append(newLineArray, lowLine);
-      } else {
+      } 
+      else {
         for (int i=0; i<rotationArray[0].length-1; i++) {
           Line line1 = new Line(rotationArray[j][i], rotationArray[0][i]);
           newLineArray = (Line[]) append(newLineArray, line1);
@@ -120,47 +140,50 @@ class Object {
 
   void display() {
     for (int i=0; i<lineArray.length; i++) {
-      lineArray[i].display2D();
+      this.lineArray[i].display2D();
     }
   }
+  
+  void transform(float[][] transfArray) {
+    setTransfArray(transfArray);
+    // new vertex-array for transformed vertexes
+    Vertex[] newVertArray = new Vertex[pointArray.length];
+    // count rows of transformation matrix
+    int transfColumns = this.transfArray[0].length;
+    // check if matrix-multiplication is possible
+    if (transfColumns != 4) {
+      println("transformation Array " + transfColumns + " did not match homogenous coordinate.");
+    }
+    for (int h=0; h<pointArray.length; h++) {
+      // iterate through vertArray
+      // return new vertArray
+      float[] newCoordinateArray = new float[4];
+      for (int i=0; i<transfArray.length; i++) {
+        // iterate through each row of transfArray
+        // return new Vertex
+        float newCoordinate = 0.0;
+        // iterate through each value of transfArray-Row 
+        // and multiply with Vertex, add to newCoordinate
+        newCoordinate += (transfArray[i][0] * pointArray[h].x);
+        newCoordinate += (transfArray[i][1] * pointArray[h].y);
+        newCoordinate += (transfArray[i][2] * pointArray[h].z);
+        newCoordinate += (transfArray[i][3] * pointArray[h].t);
+        newCoordinateArray[i] = newCoordinate;
+      }
+      // asign values of newCoordinateArray to x, y, z or t
+      Vertex newVertex = new Vertex(
+      newCoordinateArray[0], // assign to x
+      newCoordinateArray[1], // assign to y
+      newCoordinateArray[2], // assign to z
+      newCoordinateArray[3]  // assign to t
+      );
+      newVertArray[h] = newVertex;
+    }
+    //setPointArray(newVertArray);
+    setRotationArray(newVertArray);
+    createLineArray(getRotationArray());
+    display();
+  }
 
-  /*
-  void transform() {
-   // new vertex-array for transformed vertexes
-   newVertArray = new Vertex[vertArray.length];
-   // count rows of transformation matrix
-   int transfColumns = this.transfArray[0].length;
-   // check if matrix-multiplication is possible
-   if (transfColumns != 4) {
-   println("transformation Array " + transfColumns + " did not match homogenous coordinate.");
-   }
-   for (int h=0; h<vertArray.length; h++) {
-   // iterate through vertArray
-   // return new vertArray
-   float[] newCoordinateArray = new float[4];
-   for (int i=0; i<transfArray.length; i++) {
-   // iterate through each row of transfArray
-   // return new Vertex
-   float newCoordinate = 0.0;
-   // iterate through each value of transfArray-Row 
-   // and multiply with Vertex, add to newCoordinate
-   newCoordinate += (transfArray[i][0] * vertArray[h].x);
-   newCoordinate += (transfArray[i][1] * vertArray[h].y);
-   newCoordinate += (transfArray[i][2] * vertArray[h].z);
-   newCoordinate += (transfArray[i][3] * vertArray[h].t);
-   newCoordinateArray[i] = newCoordinate;
-   }
-   // asign values of newCoordinateArray to x, y, z or t
-   Vertex newVertex = new Vertex(
-   newCoordinateArray[0], // assign to x
-   newCoordinateArray[1], // assign to y
-   newCoordinateArray[2], // assign to z
-   newCoordinateArray[3]  // assign to t
-   );
-   newVertArray[h] = newVertex;
-   }
-   createLineArray(newVertArray);
-   }
-   */
 }
 

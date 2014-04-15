@@ -12,7 +12,7 @@ class Line {
     projY1 = this.v1.y/(1+(this.v1.z/200));
     projX2 = this.v2.x/(1+(this.v2.z/200));
     projY2 = this.v2.y/(1+(this.v2.z/200));
-    print(projX1, projY1, projX2, projY2);
+    //print(projX1, projY1, projX2, projY2);
     line(projX1, projY1, projX2, projY2);
   }
 
