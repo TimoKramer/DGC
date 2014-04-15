@@ -21,7 +21,7 @@ void setup() {
   //cube = new Cube();
   // create custom Object
   object = new Object();
-  object.display();
+  //object.display();
 
 }
 

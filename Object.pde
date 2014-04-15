@@ -9,16 +9,17 @@ class Object {
       new Vertex(20.0, 300.0, 0.0, 1.0),
   };
   private Line[] lineArray;
+  private Vertex[][] rotationArray;
   
   Object() {
    this.setVertArray(this.vertArray);
-   this.createLineArray(this.vertArray);
+   //this.createLineArray(this.vertArray);
    this.setLineArray(this.lineArray);
   }
   
   void setVertArray(Vertex[] vertArray) {
-    Vertex[] newVertArray;
-    newVertArray = vertArray;
+    rotationArray = new Vertex[8][vertArray.length];
+    rotationArray[0] = vertArray;
     for (int j=1; j<8; j++) {
     /*
     *  take user-defined Vertexes and rotate them 7 times to form Object
@@ -29,6 +30,7 @@ class Object {
         {-sin(j*QUARTER_PI), 0.0, cos(j*QUARTER_PI), 0.0}, 
         {0.0, 0.0, 0.0, 1.0}
       };
+      Vertex[] newRotationArray = new Vertex[vertArray.length];
       /*
       *  iterate through vertArray
       *  append newVertex to newVertArray
@@ -60,17 +62,17 @@ class Object {
           newCoordinateArray[2], // assign to z
           newCoordinateArray[3]  // assign to t
         );
-        newVertArray = (Vertex[]) append(newVertArray, newVertex);
+        newRotationArray[h] = newVertex;
       }
+      // create multidimensional array full with rotated Vertexes
+      rotationArray[j] = newRotationArray;
     }
-    this.vertArray = newVertArray;
-    //printArray(this.vertArray);
   }
   
   void setLineArray(Line[] lineArray) {
     this.lineArray = lineArray;
   }
-  
+  /**
   void createLineArray(Vertex[] vertArray) {
     Line[] newLineArray;
     //int arraylength = ((newVertArray.length*3) - (newVertArray.length/8)*2);
@@ -81,13 +83,13 @@ class Object {
     }
     setLineArray(newLineArray);
   }
-  
+
   void display() {
     for (int i=0; i<lineArray.length; i++) {
       lineArray[i].display2D();
     }
   }
-    
+  **/  
   /*
   void transform() {
     // new vertex-array for transformed vertexes
