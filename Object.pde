@@ -10,6 +10,7 @@ class Object {
     new Vertex(50.0, 250.0, 0.0, 1.0), 
     new Vertex(20.0, 300.0, 0.0, 1.0),
   };
+  private Vertex[] transformedPointArray = new Vertex[pointArray.length]; 
   private float[][] transfArray = {   
     {1.0, 0.0, 0.0, 0.0}, 
     {0.0, 1.0, 0.0, 0.0}, 
@@ -31,6 +32,14 @@ class Object {
   
   Vertex[] getPointArray(){
     return this.pointArray;
+  }
+
+  void setTransformedPointArray(Vertex[] transformedPointArray){
+    this.transformedPointArray = transformedPointArray;
+  }
+  
+  Vertex[] getTransformedPointArray(){
+    return this.transformedPointArray;
   }
 
   void setTransfArray(float[][] transfArray){
@@ -155,8 +164,8 @@ class Object {
       println("transformation Array " + transfColumns + " did not match homogenous coordinate.");
     }
     for (int h=0; h<pointArray.length; h++) {
-      // iterate through vertArray
-      // return new vertArray
+      // iterate through pointArray
+      // return new pointArray
       float[] newCoordinateArray = new float[4];
       for (int i=0; i<transfArray.length; i++) {
         // iterate through each row of transfArray
@@ -179,10 +188,10 @@ class Object {
       );
       newVertArray[h] = newVertex;
     }
-    //setPointArray(newVertArray);
-    setRotationArray(newVertArray);
+    setTransformedPointArray(newVertArray);
+    printArray(transformedPointArray);
+    setRotationArray(transformedPointArray);
     createLineArray(getRotationArray());
-    display();
   }
 
 }

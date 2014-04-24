@@ -1,3 +1,5 @@
+private static final int K = 500;
+
 class Line {
   Vertex v1, v2;
   Line(Vertex v1, Vertex v2) {
@@ -8,10 +10,10 @@ class Line {
   
   // Translation of the automated 3DLine to a 2DLine
   void display2D() {
-    projX1 = this.v1.x/(1+(this.v1.z/200));
-    projY1 = this.v1.y/(1+(this.v1.z/200));
-    projX2 = this.v2.x/(1+(this.v2.z/200));
-    projY2 = this.v2.y/(1+(this.v2.z/200));
+    projX1 = this.v1.x/(1+(this.v1.z/K));
+    projY1 = this.v1.y/(1+(this.v1.z/K));
+    projX2 = this.v2.x/(1+(this.v2.z/K));
+    projY2 = this.v2.y/(1+(this.v2.z/K));
     //print(projX1, projY1, projX2, projY2);
     line(projX1, projY1, projX2, projY2);
   }
