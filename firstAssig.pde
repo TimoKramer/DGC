@@ -14,20 +14,20 @@ int factor;
 void setup() {
   background(255);
   size(800, 600, P3D);
-  translate(200, 150, -500);
+  translate(400, 300, -500);
   stroke(#000000);
   strokeWeight(1);
   frameRate(1);
   // create Cube-Object
   // cube = new Cube();
   // create custom Object
-  object = new Object();
-  object.display();
+  //object = new Object();
+  //object.display();
   ui = new UI();
 }
 
 void draw() {
-  translate(200, 150, -500);
+  //translate(200, 150, -500);
   // CUBE 
   /* translation along y-axis
   //transfArray[0][3] += 10.0;
@@ -77,6 +77,9 @@ void draw() {
   //print(transfArray[2][1]);
   //print(transfArray[2][2]);
 
-  object.transform(transfArray);
-  object.display();
+  //object.transform(transfArray);
+  //object.display();
+  
+  // MOUSE INTERACTION
+  ui.mouseClickChecker();
 }
