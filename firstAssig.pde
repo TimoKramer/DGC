@@ -8,7 +8,7 @@ float[][] transfArray = {
 };
 //Cube cube;
 Object object;
-UI ui;
+UI UI;
 int factor;
 
 void setup() {
@@ -17,13 +17,13 @@ void setup() {
   translate(0, 0, 0);
   stroke(#000000);
   strokeWeight(1);
-  frameRate(10);
+  frameRate(60);
   // create Cube-Object
   // cube = new Cube();
   // create custom Object
   //object = new Object();
   //object.display();
-  ui = new UI();
+  UI = new UI();
 }
 
 void draw() {
@@ -81,5 +81,15 @@ void draw() {
   //object.display();
   
   // MOUSE INTERACTION
-  ui.mouseClickChecker();
+  UI.mouseClickChecker();
 }
+
+void mousePressed() {
+  UI.MI.x1 = mouseX;
+  UI.MI.x1 = mouseY;
+}
+void mouseReleased() {
+  UI.MI.x2 = mouseX;
+  UI.MI.y2 = mouseY;
+}
+
