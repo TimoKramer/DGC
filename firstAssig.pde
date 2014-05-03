@@ -14,10 +14,10 @@ int factor;
 void setup() {
   background(255);
   size(800, 600, P3D);
-  translate(400, 300, -500);
+  translate(0, 0, 0);
   stroke(#000000);
   strokeWeight(1);
-  frameRate(1);
+  frameRate(10);
   // create Cube-Object
   // cube = new Cube();
   // create custom Object
@@ -27,7 +27,7 @@ void setup() {
 }
 
 void draw() {
-  //translate(200, 150, -500);
+  translate(0, 0, 0);
   // CUBE 
   /* translation along y-axis
   //transfArray[0][3] += 10.0;
