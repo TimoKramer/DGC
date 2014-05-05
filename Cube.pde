@@ -35,6 +35,17 @@ class Cube {
   	this.setLineArray(this.lineArray);
   }
   
+  void createArrayFromMouseInput(float x1, float y1, float x2, float y2) {
+    vertArray[0] = new Vertex(x1, y1, 0.0, 1.0);
+    vertArray[1] = new Vertex(x2, y1, 0.0, 1.0);
+    vertArray[2] = new Vertex(x2, y2, 0.0, 1.0);
+    vertArray[3] = new Vertex(x1, y2, 0.0, 1.0);
+    vertArray[4] = new Vertex(x1, y1, 0.0, 1.0);
+    vertArray[5] = new Vertex(x2, y1, 0.0, 1.0);
+    vertArray[6] = new Vertex(x2, y2, 0.0, 1.0);
+    vertArray[7] = new Vertex(x1, y2, 0.0, 1.0);
+  }
+  
   void setVertArray(Vertex[] vertArray) {
   	this.vertArray = vertArray;
   }
@@ -45,6 +56,24 @@ class Cube {
   
   void setTransfArray(float[][] transfArray) {
     this.transfArray = transfArray;   
+  }
+  
+  void createLineArray(){
+    newLineArray = new Line[12];
+    newLineArray[0] = new Line(vertArray[0], vertArray[1]);
+    newLineArray[1] = new Line(vertArray[1], vertArray[2]);
+    newLineArray[2] = new Line(vertArray[2], vertArray[3]);
+    newLineArray[3] = new Line(vertArray[3], vertArray[0]);
+    newLineArray[4] = new Line(vertArray[0], vertArray[4]);
+    newLineArray[5] = new Line(vertArray[1], vertArray[5]);
+    newLineArray[6] = new Line(vertArray[2], vertArray[6]);
+    newLineArray[7] = new Line(vertArray[3], vertArray[7]);
+    newLineArray[8] = new Line(vertArray[4], vertArray[5]);
+    newLineArray[9] = new Line(vertArray[5], vertArray[6]);
+    newLineArray[10] = new Line(vertArray[6], vertArray[7]);
+    newLineArray[11] = new Line(vertArray[7], vertArray[4]);
+    setLineArray(newLineArray);
+    printArray(newLineArray);
   }
   
   void createLineArray(Vertex[] newVertArray) {

@@ -6,10 +6,11 @@ float[][] transfArray = {
     {0.0, 0.0, 1.0, 0.0}, 
     {0.0, 0.0, 0.0, 1.0}
 };
-//Cube cube;
+Cube cube;
 Object object;
 UI UI;
 int factor;
+Vertex click, drag;
 
 void setup() {
   translate(0, 0);
@@ -18,18 +19,24 @@ void setup() {
   UI = new UI();
   stroke(#000000);
   strokeWeight(1);
-  frameRate(1);
+  frameRate(6);
   // create Cube-Object
-  // cube = new Cube();
+  //cube = new Cube();
   // create custom Object
   translate(300, 200, -500);
   object = new Object();
   object.display();
+  click = new Vertex(0, 0, 0, 0);
+  drag = new Vertex(0, 0, 0, 0);
 }
 
 void draw() {
+  background(#FFFFFF);
+  UI = new UI();
+  UI.setMouseInput(click.x, click.y, drag.x - click.x, drag.y - click.y);
   translate(300, 200, -500);
   stroke(#000000);
+
   // CUBE 
   /* translation along y-axis
   //transfArray[0][3] += 10.0;
@@ -76,14 +83,19 @@ void draw() {
   transfArray[1][1] = myCos;
   object.transform(transfArray);
   object.display();
-  
   // MOUSE INTERACTION
   UI.mouseClickChecker();
 }
 
 void mousePressed() {
-  UI.MI.x1 = mouseX;
-  UI.MI.x1 = mouseY;
+  click.set(mouseX, mouseY, 0, 0);
+  drag.set(mouseX, mouseY, 0, 0);
+  //UI.MI.x1 = mouseX;
+  //UI.MI.x1 = mouseY;
+}
+
+void mouseDragged() {
+  drag.set(mouseX, mouseY, 0, 0);
 }
 
 void mouseReleased() {
