@@ -12,22 +12,24 @@ UI UI;
 int factor;
 
 void setup() {
+  translate(0, 0, 0);
   background(255);
   size(800, 600, P3D);
-  translate(0, 0, 0);
+  UI = new UI();
   stroke(#000000);
   strokeWeight(1);
-  frameRate(60);
+  frameRate(1);
   // create Cube-Object
   // cube = new Cube();
   // create custom Object
-  //object = new Object();
-  //object.display();
-  UI = new UI();
+  translate(200, 100, -500);
+  object = new Object();
+  object.display();
 }
 
 void draw() {
   translate(0, 0, 0);
+  stroke(#000000);
   // CUBE 
   /* translation along y-axis
   //transfArray[0][3] += 10.0;
@@ -65,18 +67,17 @@ void draw() {
   transfArray[2][2] += 1.0;
   */
   // rotation about the z-axis
-  factor += 1;
-  float mySin = sin(factor*QUARTER_PI);
-  float myCos = cos(factor*QUARTER_PI);
-  transfArray[0][0] = myCos;
-  transfArray[0][1] = -mySin;
-  transfArray[1][0] = mySin;
-  transfArray[1][1] = myCos;
+  //factor += 1;
+  //float mySin = sin(factor*QUARTER_PI);
+  //float myCos = cos(factor*QUARTER_PI);
+  //transfArray[0][0] = myCos;
+  //transfArray[0][1] = -mySin;
+  //transfArray[1][0] = mySin;
+  //transfArray[1][1] = myCos;
   //print(transfArray[1][1]);
   //print(transfArray[1][2]);
   //print(transfArray[2][1]);
   //print(transfArray[2][2]);
-
   //object.transform(transfArray);
   //object.display();
   
@@ -88,6 +89,7 @@ void mousePressed() {
   UI.MI.x1 = mouseX;
   UI.MI.x1 = mouseY;
 }
+
 void mouseReleased() {
   UI.MI.x2 = mouseX;
   UI.MI.y2 = mouseY;

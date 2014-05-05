@@ -2,13 +2,13 @@ private static int rotations = 8;
 
 class Object {
   private Vertex[] pointArray = new Vertex[] {
-    new Vertex(0.0, 0.0, 0.0, 1.0), 
-    new Vertex(50.0, 50.0, 0.0, 1.0), 
-    new Vertex(70.0, 100.0, 0.0, 1.0), 
-    new Vertex(80.0, 150.0, 0.0, 1.0), 
-    new Vertex(70.0, 200.0, 0.0, 1.0), 
-    new Vertex(50.0, 250.0, 0.0, 1.0), 
-    new Vertex(20.0, 300.0, 0.0, 1.0),
+    new Vertex(400.0, 200.0, 0.0, 1.0), 
+    new Vertex(450.0, 250.0, 0.0, 1.0), 
+    new Vertex(470.0, 300.0, 0.0, 1.0), 
+    new Vertex(480.0, 350.0, 0.0, 1.0), 
+    new Vertex(470.0, 400.0, 0.0, 1.0), 
+    new Vertex(450.0, 450.0, 0.0, 1.0), 
+    new Vertex(420.0, 500.0, 0.0, 1.0),
   };
   private Vertex[] transformedPointArray = new Vertex[pointArray.length]; 
   private float[][] transfArray = {   
@@ -76,7 +76,7 @@ class Object {
         for (int i=0; i<rotationTransformationArray.length; i++) {
             float newCoordinate = 0.0;
             /* 
-             *  multiply each value of rotTransformationArray-Row with
+             *  multiply each value of rotationTransformationArray-Row with
              *  corresponding Vertex-value and add to newCoordinate
              */
             newCoordinate += (rotationTransformationArray[i][0] * pointArray[h].x);
@@ -85,8 +85,8 @@ class Object {
             newCoordinate += (rotationTransformationArray[i][3] * pointArray[h].t);
             //print(newCoordinate);
             newCoordinateArray[i] = newCoordinate;
-            //printArray(newCoordinateArray);
         }
+        printArray(newCoordinateArray);
         // asign values of newCoordinateArray to x, y, z or t
         Vertex newVertex = new Vertex(
           newCoordinateArray[0], // assign to x
@@ -96,7 +96,7 @@ class Object {
         );
         newRotationArray[h] = newVertex;
       }
-      // create multidimensional array full with rotated Vertexes
+      // create multidimensional array with rotated Vertexes
       rotationArray[j] = newRotationArray;
     }
   }
