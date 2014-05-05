@@ -12,7 +12,7 @@ UI UI;
 int factor;
 
 void setup() {
-  translate(0, 0, 0);
+  translate(0, 0);
   background(255);
   size(800, 600, P3D);
   UI = new UI();
@@ -22,13 +22,13 @@ void setup() {
   // create Cube-Object
   // cube = new Cube();
   // create custom Object
-  translate(200, 100, -500);
+  translate(300, 200, -500);
   object = new Object();
   object.display();
 }
 
 void draw() {
-  translate(0, 0, 0);
+  translate(300, 200, -500);
   stroke(#000000);
   // CUBE 
   /* translation along y-axis
@@ -67,19 +67,15 @@ void draw() {
   transfArray[2][2] += 1.0;
   */
   // rotation about the z-axis
-  //factor += 1;
-  //float mySin = sin(factor*QUARTER_PI);
-  //float myCos = cos(factor*QUARTER_PI);
-  //transfArray[0][0] = myCos;
-  //transfArray[0][1] = -mySin;
-  //transfArray[1][0] = mySin;
-  //transfArray[1][1] = myCos;
-  //print(transfArray[1][1]);
-  //print(transfArray[1][2]);
-  //print(transfArray[2][1]);
-  //print(transfArray[2][2]);
-  //object.transform(transfArray);
-  //object.display();
+  factor += 1;
+  float mySin = sin(factor*QUARTER_PI);
+  float myCos = cos(factor*QUARTER_PI);
+  transfArray[0][0] = myCos;
+  transfArray[0][1] = -mySin;
+  transfArray[1][0] = mySin;
+  transfArray[1][1] = myCos;
+  object.transform(transfArray);
+  object.display();
   
   // MOUSE INTERACTION
   UI.mouseClickChecker();

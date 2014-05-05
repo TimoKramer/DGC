@@ -1,4 +1,4 @@
-private static final int K = -500;
+private static final int K = -200;
 
 class Line {
   Vertex v1, v2;
