@@ -1,9 +1,9 @@
 // instanciate array and object
 Vertex[] vertArray;
 float[][] transfArray = {   
-    {1.0, 0.0, 0.0, 0.0}, 
-    {0.0, 1.0, 0.0, 0.0}, 
-    {0.0, 0.0, 1.0, 0.0}, 
+    {1.0, 0.0, 0.0, 1.0}, 
+    {0.0, 1.0, 0.0, 1.0}, 
+    {0.0, 0.0, 1.0, 1.0}, 
     {0.0, 0.0, 0.0, 1.0}
 };
 Cube cube;
@@ -77,6 +77,10 @@ void draw() {
   factor += 1;
   float mySin = sin(factor*QUARTER_PI);
   float myCos = cos(factor*QUARTER_PI);
+  println();
+  println(cos(2*QUARTER_PI));
+  println("*******" + myCos + "******");
+  
   transfArray[0][0] = myCos;
   transfArray[0][1] = -mySin;
   transfArray[1][0] = mySin;

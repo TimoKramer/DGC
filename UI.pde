@@ -45,7 +45,7 @@ class UI {
   }
   
   void setMouseInput(float clickX, float clickY, float dragX, float dragY) {
-    println(clickX, clickY, dragX, dragY);
+    //println(clickX, clickY, dragX, dragY);
     if(this.modus == 1){
       println("hola2");
       cube = new Cube();
