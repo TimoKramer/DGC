@@ -41,9 +41,9 @@ class Object {
     return this.transfArray;
   }
   
-  void setRotationArray(Vertex[] originalPointArray) {
-    rotationArray = new Vertex[rotations][originalPointArray.length];
-    rotationArray[0] = originalPointArray;
+  void setRotationArray(Vertex[] pointArray) {
+    rotationArray = new Vertex[rotations][pointArray.length];
+    rotationArray[0] = pointArray;
     for (int j=1; j<rotations; j++) {
       /*
        *  take user-defined Vertexes and rotate them 7 times to form Object
@@ -54,11 +54,11 @@ class Object {
         {-sin(j*QUARTER_PI), 0.0, cos(j*QUARTER_PI), 0.0}, 
         {0.0, 0.0, 0.0, 1.0}
       };
-      Vertex[] newRotationArray = new Vertex[originalPointArray.length];
+      Vertex[] newRotationArray = new Vertex[pointArray.length];
       /*
-       *  iterate through originalPointArray
+       *  iterate through pointArray
        */
-      for (int h=0; h<originalPointArray.length; h++) {
+      for (int h=0; h<pointArray.length; h++) {
         float[] newCoordinateArray = new float[4];
         /*
          *  iterate through each row of rotationTransformationArray
@@ -70,10 +70,10 @@ class Object {
              *  multiply each value of rotTransformationArray-Row with
              *  corresponding Vertex-value and add to newCoordinate
              */
-            newCoordinate += (rotationTransformationArray[i][0] * originalPointArray[h].x);
-            newCoordinate += (rotationTransformationArray[i][1] * originalPointArray[h].y);
-            newCoordinate += (rotationTransformationArray[i][2] * originalPointArray[h].z);
-            newCoordinate += (rotationTransformationArray[i][3] * originalPointArray[h].t);
+            newCoordinate += (rotationTransformationArray[i][0] * pointArray[h].x);
+            newCoordinate += (rotationTransformationArray[i][1] * pointArray[h].y);
+            newCoordinate += (rotationTransformationArray[i][2] * pointArray[h].z);
+            newCoordinate += (rotationTransformationArray[i][3] * pointArray[h].t);
             //print(newCoordinate);
             newCoordinateArray[i] = newCoordinate;
             //printArray(newCoordinateArray);

@@ -19,7 +19,7 @@ void setup() {
   UI = new UI();
   stroke(#000000);
   strokeWeight(1);
-  frameRate(6);
+  frameRate(1);
   // create Cube-Object
   //cube = new Cube();
   // create custom Object
