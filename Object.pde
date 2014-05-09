@@ -17,11 +17,11 @@ class Object {
     {0.0, 0.0, 0.0, 1.0}
   };
   private Line[] lineArray;
-  private Vertex[][] revolutionObject;
+  private Vertex[][] pointsForRevolutionObject;
 
   Object() {
-    this.setRevolutionObject(this.originalPointArray);
-    this.createLineArray(this.revolutionObject);
+    this.setPointsForRevolutionObject(this.originalPointArray);
+    this.createLineArray(this.pointsForRevolutionObject);
     this.setLineArray(this.lineArray);
   }
 
@@ -41,9 +41,9 @@ class Object {
     return this.transfArray;
   }
 
-  void setRevolutionObject(Vertex[] pointArray) {
-    revolutionObject = new Vertex[rotations][pointArray.length];
-    revolutionObject[0] = pointArray;
+  void setPointsForRevolutionObject(Vertex[] pointArray) {
+    pointsForRevolutionObject = new Vertex[rotations][pointArray.length];
+    pointsForRevolutionObject[0] = pointArray;
     for (int j=1; j<rotations; j++) {
       /*
        *  take user-defined Vertexes and rotate them 7 times to form Object
@@ -96,12 +96,12 @@ class Object {
         */
       }
       // create multidimensional array full with rotated Vertexes
-      revolutionObject[j] = newRotationArray;
+      pointsForRevolutionObject[j] = newRotationArray;
     }
   }
 
-  Vertex[][] getRevolutionObject() {
-    return this.revolutionObject;
+  Vertex[][] getPointsForRevolutionObject() {
+    return this.pointsForRevolutionObject;
   }
 
   void setLineArray(Line[] lineArray) {
@@ -112,33 +112,33 @@ class Object {
     return this.lineArray;
   }
 
-  void createLineArray(Vertex[][] revolutionObject) {
-    int lastEl = revolutionObject[0].length-1;
+  void createLineArray(Vertex[][] pointsForRevolutionObject) {
+    int lastEl = pointsForRevolutionObject[0].length-1;
     Line[] newLineArray;
     newLineArray = new Line[0];
-    for (int j=0; j<revolutionObject.length; j++) {
+    for (int j=0; j<pointsForRevolutionObject.length; j++) {
       if (j!=7) {
-        for (int i=0; i<revolutionObject[0].length-1; i++) {
-          Line line1 = new Line(revolutionObject[j][i], revolutionObject[j+1][i]);
+        for (int i=0; i<pointsForRevolutionObject[0].length-1; i++) {
+          Line line1 = new Line(pointsForRevolutionObject[j][i], pointsForRevolutionObject[j+1][i]);
           newLineArray = (Line[]) append(newLineArray, line1);
-          Line line2 = new Line(revolutionObject[j][i], revolutionObject[j+1][i+1]);
+          Line line2 = new Line(pointsForRevolutionObject[j][i], pointsForRevolutionObject[j+1][i+1]);
           newLineArray = (Line[]) append(newLineArray, line2); 
-          Line line3 = new Line(revolutionObject[j][i], revolutionObject[j][i+1]);
+          Line line3 = new Line(pointsForRevolutionObject[j][i], pointsForRevolutionObject[j][i+1]);
           newLineArray = (Line[]) append(newLineArray, line3);
         }
-        Line lowLine = new Line(revolutionObject[j][lastEl], revolutionObject[j+1][lastEl]);
+        Line lowLine = new Line(pointsForRevolutionObject[j][lastEl], pointsForRevolutionObject[j+1][lastEl]);
         newLineArray = (Line[]) append(newLineArray, lowLine);
       } 
       else {
-        for (int i=0; i<revolutionObject[0].length-1; i++) {
-          Line line1 = new Line(revolutionObject[j][i], revolutionObject[0][i]);
+        for (int i=0; i<pointsForRevolutionObject[0].length-1; i++) {
+          Line line1 = new Line(pointsForRevolutionObject[j][i], pointsForRevolutionObject[0][i]);
           newLineArray = (Line[]) append(newLineArray, line1);
-          Line line2 = new Line(revolutionObject[j][i], revolutionObject[0][i+1]);
+          Line line2 = new Line(pointsForRevolutionObject[j][i], pointsForRevolutionObject[0][i+1]);
           newLineArray = (Line[]) append(newLineArray, line2); 
-          Line line3 = new Line(revolutionObject[j][i], revolutionObject[j][i+1]);
+          Line line3 = new Line(pointsForRevolutionObject[j][i], pointsForRevolutionObject[j][i+1]);
           newLineArray = (Line[]) append(newLineArray, line3);
         }
-        Line lowLine = new Line(revolutionObject[j][lastEl], revolutionObject[0][lastEl]);
+        Line lowLine = new Line(pointsForRevolutionObject[j][lastEl], pointsForRevolutionObject[0][lastEl]);
         newLineArray = (Line[]) append(newLineArray, lowLine);
       }
     }
@@ -208,8 +208,8 @@ class Object {
       print(" " + newVertex.t);
     }
     //setOriginalPointArray(newVertArray);
-    setRevolutionObject(newVertArray);
-    createLineArray(getRevolutionObject());
+    setPointsForRevolutionObject(newVertArray);
+    createLineArray(getPointsForRevolutionObject());
     display();
   }
 }
