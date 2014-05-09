@@ -74,12 +74,8 @@ void draw() {
   transfArray[2][2] += 1.0;
   */
   // rotation about the z-axis
-  factor += 1;
-  float mySin = sin(factor*QUARTER_PI);
-  float myCos = cos(factor*QUARTER_PI);
-  println();
-  println(cos(2*QUARTER_PI));
-  println("*******" + myCos + "******");
+  float mySin = sin(QUARTER_PI);
+  float myCos = cos(QUARTER_PI);
   
   transfArray[0][0] = myCos;
   transfArray[0][1] = -mySin;
