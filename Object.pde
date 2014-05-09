@@ -17,11 +17,11 @@ class Object {
     {0.0, 0.0, 0.0, 1.0}
   };
   private Line[] lineArray;
-  private Vertex[][] rotationArray;
+  private Vertex[][] revolutionObject;
 
   Object() {
-    this.setRotationArray(this.originalPointArray);
-    this.createLineArray(this.rotationArray);
+    this.setRevolutionObject(this.originalPointArray);
+    this.createLineArray(this.revolutionObject);
     this.setLineArray(this.lineArray);
   }
 
@@ -41,9 +41,9 @@ class Object {
     return this.transfArray;
   }
 
-  void setRotationArray(Vertex[] pointArray) {
-    rotationArray = new Vertex[rotations][pointArray.length];
-    rotationArray[0] = pointArray;
+  void setRevolutionObject(Vertex[] pointArray) {
+    revolutionObject = new Vertex[rotations][pointArray.length];
+    revolutionObject[0] = pointArray;
     for (int j=1; j<rotations; j++) {
       /*
        *  take user-defined Vertexes and rotate them 7 times to form Object
@@ -96,12 +96,12 @@ class Object {
         */
       }
       // create multidimensional array full with rotated Vertexes
-      rotationArray[j] = newRotationArray;
+      revolutionObject[j] = newRotationArray;
     }
   }
 
-  Vertex[][] getRotationArray() {
-    return this.rotationArray;
+  Vertex[][] getRevolutionObject() {
+    return this.revolutionObject;
   }
 
   void setLineArray(Line[] lineArray) {
@@ -112,33 +112,33 @@ class Object {
     return this.lineArray;
   }
 
-  void createLineArray(Vertex[][] rotationArray) {
-    int lastEl = rotationArray[0].length-1;
+  void createLineArray(Vertex[][] revolutionObject) {
+    int lastEl = revolutionObject[0].length-1;
     Line[] newLineArray;
     newLineArray = new Line[0];
-    for (int j=0; j<rotationArray.length; j++) {
+    for (int j=0; j<revolutionObject.length; j++) {
       if (j!=7) {
-        for (int i=0; i<rotationArray[0].length-1; i++) {
-          Line line1 = new Line(rotationArray[j][i], rotationArray[j+1][i]);
+        for (int i=0; i<revolutionObject[0].length-1; i++) {
+          Line line1 = new Line(revolutionObject[j][i], revolutionObject[j+1][i]);
           newLineArray = (Line[]) append(newLineArray, line1);
-          Line line2 = new Line(rotationArray[j][i], rotationArray[j+1][i+1]);
+          Line line2 = new Line(revolutionObject[j][i], revolutionObject[j+1][i+1]);
           newLineArray = (Line[]) append(newLineArray, line2); 
-          Line line3 = new Line(rotationArray[j][i], rotationArray[j][i+1]);
+          Line line3 = new Line(revolutionObject[j][i], revolutionObject[j][i+1]);
           newLineArray = (Line[]) append(newLineArray, line3);
         }
-        Line lowLine = new Line(rotationArray[j][lastEl], rotationArray[j+1][lastEl]);
+        Line lowLine = new Line(revolutionObject[j][lastEl], revolutionObject[j+1][lastEl]);
         newLineArray = (Line[]) append(newLineArray, lowLine);
       } 
       else {
-        for (int i=0; i<rotationArray[0].length-1; i++) {
-          Line line1 = new Line(rotationArray[j][i], rotationArray[0][i]);
+        for (int i=0; i<revolutionObject[0].length-1; i++) {
+          Line line1 = new Line(revolutionObject[j][i], revolutionObject[0][i]);
           newLineArray = (Line[]) append(newLineArray, line1);
-          Line line2 = new Line(rotationArray[j][i], rotationArray[0][i+1]);
+          Line line2 = new Line(revolutionObject[j][i], revolutionObject[0][i+1]);
           newLineArray = (Line[]) append(newLineArray, line2); 
-          Line line3 = new Line(rotationArray[j][i], rotationArray[j][i+1]);
+          Line line3 = new Line(revolutionObject[j][i], revolutionObject[j][i+1]);
           newLineArray = (Line[]) append(newLineArray, line3);
         }
-        Line lowLine = new Line(rotationArray[j][lastEl], rotationArray[0][lastEl]);
+        Line lowLine = new Line(revolutionObject[j][lastEl], revolutionObject[0][lastEl]);
         newLineArray = (Line[]) append(newLineArray, lowLine);
       }
     }
@@ -208,8 +208,8 @@ class Object {
       print(" " + newVertex.t);
     }
     //setOriginalPointArray(newVertArray);
-    setRotationArray(newVertArray);
-    createLineArray(getRotationArray());
+    setRevolutionObject(newVertArray);
+    createLineArray(getRevolutionObject());
     display();
   }
 }
