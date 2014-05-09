@@ -155,60 +155,55 @@ class Object {
   void transform(float[][] transfArray) {
     setTransfArray(transfArray);
     // new vertex-array for transformed vertexes
-    Vertex[] newVertArray = new Vertex[originalPointArray.length];
+    Vertex[][] newPointsForRevolutionObject = new Vertex[pointsForRevolutionObject.length][pointsForRevolutionObject[0].length];
     // count rows of transformation matrix
     int transfColumns = this.transfArray[0].length;
     // check if matrix-multiplication is possible
     if (transfColumns != 4) {
       println("transformation Array " + transfColumns + " did not match homogenous coordinate.");
     }
-    println("transformationArray Row1");
-    printArray(transfArray[0]);
-    println("transformationArray Row2");
-    printArray(transfArray[1]);
-    println("transformationArray Row3");
-    printArray(transfArray[2]);
-    println("transformationArray Row4");
-    printArray(transfArray[3]);
-    for (int h=0; h<originalPointArray.length; h++) {
-      // iterate through vertArray
-      // return new vertArray
-      float[] newCoordinateArray = new float[4];
-      for (int i=0; i<transfArray.length; i++) {
-        // iterate through each row of transfArray
-        // return new Vertex
-        float newCoordinate = 0.0;
-        // iterate through each value of transfArray-Row 
-        // and multiply with Vertex, add to newCoordinate
-        newCoordinate += (transfArray[i][0] * originalPointArray[h].x);
-        newCoordinate += (transfArray[i][1] * originalPointArray[h].y);
-        newCoordinate += (transfArray[i][2] * originalPointArray[h].z);
-        newCoordinate += (transfArray[i][3] * originalPointArray[h].t);
-        newCoordinateArray[i] = newCoordinate;
+    for (int h=0; h<pointsForRevolutionObject.length; h++) {
+      for (int j=0; j<pointsForRevolutionObject[0].length; j++) {
+        // iterate through vertArray
+        // return new vertArray
+        float[] newCoordinateArray = new float[4];
+        for (int i=0; i<transfArray.length; i++) {
+          // iterate through each row of transfArray
+          // return new Vertex
+          float newCoordinate = 0.0;
+          // iterate through each value of transfArray-Row 
+          // and multiply with Vertex, add to newCoordinate
+          newCoordinate += (transfArray[i][0] * pointsForRevolutionObject[h][j].x);
+          newCoordinate += (transfArray[i][1] * pointsForRevolutionObject[h][j].y);
+          newCoordinate += (transfArray[i][2] * pointsForRevolutionObject[h][j].z);
+          newCoordinate += (transfArray[i][3] * pointsForRevolutionObject[h][j].t);
+          newCoordinateArray[i] = newCoordinate;
+        }
+        // asign values of newCoordinateArray to x, y, z or t
+        Vertex newVertex = new Vertex(
+        newCoordinateArray[0], // assign to x
+        newCoordinateArray[1], // assign to y
+        newCoordinateArray[2], // assign to z
+        newCoordinateArray[3]  // assign to t
+        );
+        println();
+        println("old Point " );
+        print(" " + pointsForRevolutionObject[h][j].x);
+        print(" " + pointsForRevolutionObject[h][j].y);
+        print(" " + pointsForRevolutionObject[h][j].z);
+        print(" " + pointsForRevolutionObject[h][j].t);
+        println();
+        pointsForRevolutionObject[h][j] = newVertex;
+        println("new Point ");
+        print(" " + pointsForRevolutionObject[h][j].x);
+        print(" " + pointsForRevolutionObject[h][j].y);
+        print(" " + pointsForRevolutionObject[h][j].z);
+        print(" " + pointsForRevolutionObject[h][j].t);
+        println();
       }
-      // asign values of newCoordinateArray to x, y, z or t
-      Vertex newVertex = new Vertex(
-      newCoordinateArray[0], // assign to x
-      newCoordinateArray[1], // assign to y
-      newCoordinateArray[2], // assign to z
-      newCoordinateArray[3]  // assign to t
-      );
-      newVertArray[h] = newVertex;
-      println();
-      println("old Point " );
-      print(" " + originalPointArray[h].x);
-      print(" " + originalPointArray[h].y);
-      print(" " + originalPointArray[h].z);
-      print(" " + originalPointArray[h].t);
-      println();
-      println("new Point ");
-      print(" " + newVertex.x);
-      print(" " + newVertex.y);
-      print(" " + newVertex.z);
-      print(" " + newVertex.t);
     }
     //setOriginalPointArray(newVertArray);
-    setPointsForRevolutionObject(newVertArray);
+    //setPointsForRevolutionObject(newVertArray);
     createLineArray(getPointsForRevolutionObject());
     display();
   }
