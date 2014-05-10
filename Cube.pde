@@ -73,7 +73,7 @@ class Cube {
     newLineArray[10] = new Line(vertArray[6], vertArray[7]);
     newLineArray[11] = new Line(vertArray[7], vertArray[4]);
     setLineArray(newLineArray);
-    printArray(newLineArray);
+    //Array(newLineArray);
   }
   
   void createLineArray(Vertex[] newVertArray) {

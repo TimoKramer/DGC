@@ -33,7 +33,7 @@ void setup() {
 void draw() {
   background(#FFFFFF);
   UI = new UI(UI.modus);
-  UI.setMouseInput(click.x, click.y, drag.x - click.x, drag.y - click.y);
+  UI.setMouseInput(click.x, click.y, drag.x, drag.y);
   translate(300, 200, -500);
   stroke(#000000);
 
@@ -99,9 +99,7 @@ void draw() {
 
 void mousePressed() {
   click.set(mouseX, mouseY, 0, 0);
-  drag.set(mouseX, mouseY, 0, 0);
-  //UI.MI.x1 = mouseX;
-  //UI.MI.x1 = mouseY;
+  drag.set(0, 0, 0, 0);
 }
 
 void mouseDragged() {
