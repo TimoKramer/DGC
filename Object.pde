@@ -186,6 +186,7 @@ class Object {
         newCoordinateArray[2], // assign to z
         newCoordinateArray[3]  // assign to t
         );
+        /** Printing Transformation
         println();
         println("old Point " );
         print(" " + pointsForRevolutionObject[h][j].x);
@@ -200,6 +201,7 @@ class Object {
         print(" " + pointsForRevolutionObject[h][j].z);
         print(" " + pointsForRevolutionObject[h][j].t);
         println();
+        **/
       }
     }
     //setOriginalPointArray(newVertArray);

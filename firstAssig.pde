@@ -19,20 +19,20 @@ void setup() {
   UI = new UI();
   stroke(#000000);
   strokeWeight(1);
-  frameRate(1);
+  frameRate(60);
+  translate(300, 200, -500);
   // create Cube-Object
   //cube = new Cube();
   // create custom Object
-  translate(300, 200, -500);
-  object = new Object();
-  object.display();
+  //object = new Object();
+  //object.display();
   click = new Vertex(0, 0, 0, 0);
   drag = new Vertex(0, 0, 0, 0);
 }
 
 void draw() {
   background(#FFFFFF);
-  UI = new UI();
+  UI = new UI(UI.modus);
   UI.setMouseInput(click.x, click.y, drag.x - click.x, drag.y - click.y);
   translate(300, 200, -500);
   stroke(#000000);
@@ -73,18 +73,28 @@ void draw() {
   transfArray[1][1] += 1.0;
   transfArray[2][2] += 1.0;
   */
-  // rotation about the z-axis
-  float mySin = sin(QUARTER_PI);
-  float myCos = cos(QUARTER_PI);
-  
-  transfArray[0][0] = myCos;
-  transfArray[0][1] = -mySin;
-  transfArray[1][0] = mySin;
-  transfArray[1][1] = myCos;
-  object.transform(transfArray);
-  object.display();
+  /* rotation about the z-axis
+  transfArray[0][0] = cos(QUARTER_PI);
+  transfArray[0][1] = -sin(QUARTER_PI);
+  transfArray[1][0] = sin(QUARTER_PI);
+  transfArray[1][1] = cos(QUARTER_PI);
+  */
+  /* rotation about the x-axis
+  transfArray[1][1] = cos(QUARTER_PI);
+  transfArray[1][2] = -sin(QUARTER_PI);
+  transfArray[2][1] = sin(QUARTER_PI);
+  transfArray[2][2] = cos(QUARTER_PI);
+  */
+  /* rotation about the y-axis
+  transfArray[0][0] = cos(QUARTER_PI);
+  transfArray[0][2] = sin(QUARTER_PI);
+  transfArray[2][0] = -sin(QUARTER_PI);
+  transfArray[2][2] = cos(QUARTER_PI);
+  */
+  //object.transform(transfArray);
+  //object.display();
   // MOUSE INTERACTION
-  UI.mouseClickChecker();
+  UI.buttonChecker();
 }
 
 void mousePressed() {

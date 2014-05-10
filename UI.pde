@@ -10,16 +10,25 @@ class UI {
   
   UI() {
     stroke(#FF0000);
-    line(400, 300, 450, 300);
-    line(400, 300, 400, 350);
+    line(375, 300, 425, 300);
+    line(400, 275, 400, 325);
   }
-  
-  void mouseClickChecker() {
+    
+  UI(int modus) {
+    this.modus = modus;
+    stroke(#FF0000);
+    line(375, 300, 425, 300);
+    line(400, 275, 400, 325);
+  }
+
+    
+  void buttonChecker() {
     if (mousePressed && (mouseButton == LEFT)) {
       if ((mouseX>=this.button1.x && mouseX<=this.button1.x+this.button1.w) 
         && (mouseY>=this.button1.y && mouseY<=this.button1.y+this.button1.h)) {
         println("clickedButton1");
-        modus = 1;
+        this.modus = 1;
+        println(this.modus);
       }
       if ((mouseX>=this.button2.x && mouseX<=this.button2.x+this.button2.w) 
         && (mouseY>=this.button2.y && mouseY<=this.button2.y+this.button2.h)) {
@@ -45,13 +54,14 @@ class UI {
   }
   
   void setMouseInput(float clickX, float clickY, float dragX, float dragY) {
-    //println(clickX, clickY, dragX, dragY);
+    println(clickX, clickY, dragX, dragY);
+    println(this.modus);
     if(this.modus == 1){
-      println("hola2");
-      cube = new Cube();
-      cube.createArrayFromMouseInput(clickX, clickY, dragX, dragY);
-      cube.createLineArray();
-      cube.display();
+      println("Cube!!!");
+      //cube = new Cube();
+      //cube.createArrayFromMouseInput(clickX, clickY, dragX, dragY);
+      //cube.createLineArray();
+      //cube.display();
     }
   }
     
