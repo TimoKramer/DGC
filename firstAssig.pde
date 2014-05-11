@@ -106,7 +106,6 @@ void mousePressed() {
 void mouseDragged() {
   translate(click.x, click.y, 0);
   drag.set(mouseX, mouseY, 0, 0);
-  translate(300, 200, -500);
 }
 
 void mouseReleased() {

@@ -1,19 +1,19 @@
 class UI {
-  
+
   Button button1 = new Button(670, 10, 110, 30, "createCube");
-  Button button2 = new Button(670, 60, 110, 30, "transfCube");
+  Button button2 = new Button(670, 60, 110, 30, "translateCube");
   Button button3 = new Button(670, 110, 110, 30, "definePoints");
   Button button4 = new Button(670, 160, 110, 30, "createObject");
   Button button5 = new Button(670, 210, 110, 30, "transfObject");
   int modus = 0;
-  mouseInteraction MI = new mouseInteraction(0,0,0,0);
-  
+  mouseInteraction MI = new mouseInteraction(0, 0, 0, 0);
+
   UI() {
     stroke(#FF0000);
     line(375, 300, 425, 300);
     line(400, 275, 400, 325);
   }
-    
+
   UI(int modus) {
     this.modus = modus;
     stroke(#FF0000);
@@ -48,51 +48,58 @@ class UI {
         println("clickedButton5");
         modus = 5;
       }
-    } 
+    }
   }
-  
+
   void setMouseInput(Vertex click, Vertex drag) {
-    if (drag.x == 0) {return;}
-    if (drag.y == 0) {return;}
+    cube = new Cube();
+    if (drag.x == 0) {
+      return;
+    }
+    if (drag.y == 0) {
+      return;
+    }
     println(this.modus);
-    if(this.modus == 1){
+    if (this.modus == 1) {
       if ((drag.x-click.x)<=(drag.y-click.y)) {
         drag.x = click.x + drag.y-click.y;
       }
       if ((drag.y-click.y)<(drag.x-click.x)) {
         drag.y = click.y + drag.x-click.x;
       }
-      cube = new Cube();
-      cube.createArrayByMouseInput(click.x, click.y, drag.x, drag.y);
+      cube.createCubeByMouse(click.x, click.y, drag.x, drag.y);
       cube.createLineArray();
       cube.display();
     }
-    if(this.modus == 2){
-      return;
+    if (this.modus == 2) {
+      println(cube.vertArray[0].x);
+      println(cube.vertArray[0].y);
+      println(cube.vertArray[0].z);
+      //cube.translateByMouse(drag.x - click.x, drag.y - click.y, 1);
     }
-    if(this.modus == 3){
+    if (this.modus == 3) {
       object = new Object();
       return;
     }
-    if(this.modus == 4){
+    if (this.modus == 4) {
       return;
     }
-    if(this.modus == 5){
+    if (this.modus == 5) {
       return;
     }
   }
-    
+
   class mouseInteraction {
-  
+
     public int x1, y1, x2, y2;
-  
+
     mouseInteraction(int x1, int y1, int x2, int y2) {
       this.x1 = x1;
       this.y1 = y1;
       this.x2 = x2;
       this.y2 = y2;
     }
-    
+
     void actionDistributor(int x1, int y1, int x2, int y2) {
       if (modus == 1) {
         println("There will be a rectangle");
@@ -108,12 +115,12 @@ class UI {
       }
     }
   }
-  
+
   class Button {
-    
+
     int x, y, w, h;
     String string;
-    
+
     Button(int x, int y, int w, int h, String string) {
       this.x = x;
       this.y = y;
@@ -125,9 +132,8 @@ class UI {
       rect(x, y, w, h);
       textSize(15);
       fill(0, 102, 153);
-      text(string, x+5, y+25);     
+      text(string, x+5, y+25);
     }
   }
-  
 }
-  
+

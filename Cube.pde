@@ -26,12 +26,7 @@ class Cube {
     new Line(vertArray[6], vertArray[7]),
     new Line(vertArray[7], vertArray[4])
   };
-  float[][] transfArray = {   
-      {1.0, 0.0, 0.0, 1.0}, 
-      {0.0, 1.0, 0.0, 1.0}, 
-      {0.0, 0.0, 1.0, 1.0}, 
-      {0.0, 0.0, 0.0, 1.0}
-  };
+  float[][] transfArray;
   private Vertex[] newVertArray;
   private Line[] newLineArray;
   
@@ -67,7 +62,6 @@ class Cube {
     newLineArray[10] = new Line(vertArray[6], vertArray[7]);
     newLineArray[11] = new Line(vertArray[7], vertArray[4]);
     setLineArray(newLineArray);
-    //Array(newLineArray);
   }
   
   void createLineArray(Vertex[] newVertArray) {
@@ -136,18 +130,34 @@ class Cube {
     createLineArray(newVertArray);
   }
   
-  void createArrayByMouseInput(float x1, float y1, float x2, float y2) {
+  void createCubeByMouse(float x1, float y1, float x2, float y2) {
     println("x1: " + x1 + " y1: " + y1 + " x2: " + x2 + " y2: " + y2);
-    vertArray[0] = new Vertex(x1, y1, 0.0, 1.0);
-    vertArray[1] = new Vertex(x2, y1, 0.0, 1.0);
-    vertArray[2] = new Vertex(x2, y2, 0.0, 1.0);
-    vertArray[3] = new Vertex(x1, y2, 0.0, 1.0);
-    vertArray[4] = new Vertex(x1, y1, 0.0, 1.0);
-    vertArray[5] = new Vertex(x2, y1, 0.0, 1.0);
-    vertArray[6] = new Vertex(x2, y2, 0.0, 1.0);
-    vertArray[7] = new Vertex(x1, y2, 0.0, 1.0);
+    Vertex[] mouseVertArray = new Vertex[8]; 
+    mouseVertArray[0] = new Vertex(x1, y1, 0.0, 1.0);
+    mouseVertArray[1] = new Vertex(x2, y1, 0.0, 1.0);
+    mouseVertArray[2] = new Vertex(x2, y2, 0.0, 1.0);
+    mouseVertArray[3] = new Vertex(x1, y2, 0.0, 1.0);
+    mouseVertArray[4] = new Vertex(x1, y1, 0.0, 1.0);
+    mouseVertArray[5] = new Vertex(x2, y1, 0.0, 1.0);
+    mouseVertArray[6] = new Vertex(x2, y2, 0.0, 1.0);
+    mouseVertArray[7] = new Vertex(x1, y2, 0.0, 1.0);
+    setVertArray(mouseVertArray);
   }
   
-  void translateByMouse(
+  void translateByMouse(float dx, float dy, float dz) {
+    float[][] newTransformationArray = {   
+      {1.0, 0.0, 0.0, 1.0}, 
+      {0.0, 1.0, 0.0, 1.0}, 
+      {0.0, 0.0, 1.0, 1.0}, 
+      {0.0, 0.0, 0.0, 1.0}
+    };
+    newTransformationArray[0][3] = dx;
+    newTransformationArray[1][3] = dy;
+    newTransformationArray[2][3] = dz;
+    setTransfArray(newTransformationArray);
+    transform();
+    createLineArray();
+    display();
+  }
   
 }
