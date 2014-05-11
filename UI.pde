@@ -2,9 +2,9 @@ class UI {
   
   Button button1 = new Button(670, 10, 110, 30, "createCube");
   Button button2 = new Button(670, 60, 110, 30, "transfCube");
-  Button button3 = new Button(670, 110, 110, 30, "createObject");
-  Button button4 = new Button(670, 160, 110, 30, "transfObject");
-  Button button5 = new Button(670, 210, 110, 30, "clear");
+  Button button3 = new Button(670, 110, 110, 30, "definePoints");
+  Button button4 = new Button(670, 160, 110, 30, "createObject");
+  Button button5 = new Button(670, 210, 110, 30, "transfObject");
   int modus = 0;
   mouseInteraction MI = new mouseInteraction(0,0,0,0);
   
@@ -55,13 +55,34 @@ class UI {
   void setMouseInput(Vertex click, Vertex drag) {
     if (drag.x == 0) {return;}
     if (drag.y == 0) {return;}
-    println(click.x, click.y, drag.x, drag.y);
     println(this.modus);
     if(this.modus == 1){
+      if ((drag.x-click.x)<=(drag.y-click.y)) {
+        println("Mustafa");
+        drag.x = click.x + drag.y-click.y;
+      }
+      if ((drag.y-click.y)<(drag.x-click.x)) {
+        println("Engin");
+        drag.y = click.y + drag.x-click.x;
+      }
+      println(click.x, click.y, drag.x, drag.y);
       cube = new Cube();
       cube.createArrayFromMouseInput(click.x, click.y, drag.x, drag.y);
       cube.createLineArray();
       cube.display();
+    }
+    if(this.modus == 2){
+      return;
+    }
+    if(this.modus == 3){
+      object = new Object();
+      return;
+    }
+    if(this.modus == 4){
+      return;
+    }
+    if(this.modus == 5){
+      return;
     }
   }
     
