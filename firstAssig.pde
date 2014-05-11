@@ -33,7 +33,10 @@ void setup() {
 void draw() {
   background(#FFFFFF);
   UI = new UI(UI.modus);
-  UI.setMouseInput(click.x, click.y, drag.x, drag.y);
+  stroke(#000000);
+  // MOUSE INTERACTION
+  UI.buttonChecker();
+  UI.setMouseInput(click, drag);
   translate(300, 200, -500);
   stroke(#000000);
 
@@ -93,8 +96,6 @@ void draw() {
   */
   //object.transform(transfArray);
   //object.display();
-  // MOUSE INTERACTION
-  UI.buttonChecker();
 }
 
 void mousePressed() {

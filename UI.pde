@@ -52,15 +52,14 @@ class UI {
     } 
   }
   
-  void setMouseInput(float clickX, float clickY, float dragX, float dragY) {
-    if (dragX == 0) {dragX = clickX;}
-    if (dragY == 0) {dragY = clickY;}
-    println(clickX, clickY, dragX, dragY);
+  void setMouseInput(Vertex click, Vertex drag) {
+    if (drag.x == 0) {return;}
+    if (drag.y == 0) {return;}
+    println(click.x, click.y, drag.x, drag.y);
     println(this.modus);
     if(this.modus == 1){
-      //println("Cube!!!");
       cube = new Cube();
-      cube.createArrayFromMouseInput(clickX, clickY, dragX, dragY);
+      cube.createArrayFromMouseInput(click.x, click.y, drag.x, drag.y);
       cube.createLineArray();
       cube.display();
     }
