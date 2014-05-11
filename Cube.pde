@@ -36,8 +36,6 @@ class Cube {
   }
   
   void createArrayFromMouseInput(float x1, float y1, float x2, float y2) {
-    if (x2>=y2) {y2=x2;}
-    if (y2>x2) {x2=y2;}
     println("x1: " + x1 + " y1: " + y1 + " x2: " + x2 + " y2: " + y2);
       vertArray[0] = new Vertex(x1, y1, 0.0, 1.0);
       vertArray[1] = new Vertex(x2, y1, 0.0, 1.0);
