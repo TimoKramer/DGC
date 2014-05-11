@@ -21,7 +21,6 @@ class UI {
     line(400, 275, 400, 325);
   }
 
-    
   void buttonChecker() {
     if (mousePressed && (mouseButton == LEFT)) {
       if ((mouseX>=this.button1.x && mouseX<=this.button1.x+this.button1.w) 
@@ -64,7 +63,7 @@ class UI {
         drag.y = click.y + drag.x-click.x;
       }
       cube = new Cube();
-      cube.createArrayFromMouseInput(click.x, click.y, drag.x, drag.y);
+      cube.createArrayByMouseInput(click.x, click.y, drag.x, drag.y);
       cube.createLineArray();
       cube.display();
     }
